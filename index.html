@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sakina — 44-Day Postpartum Refugio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hijau: #2D5016;
+    --hijau-mid: #4A7C2F;
+    --hijau-muda: #8FB87A;
+    --krem: #F5EFE0;
+    --krem-gelap: #E8DCCA;
+    --tembaga: #B8712A;
+    --tembaga-muda: #D4975A;
+    --putih: #FAFAF7;
+    --coklat: #3D2B1F;
+    --coklat-muda: #6B4E3D;
+    --text: #2C2016;
+    --text-soft: #6B5E52;
+    --radius: 2px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--krem);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ---- HEADER ---- */
+  .header {
+    background: var(--hijau);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234A7C2F' fill-opacity='0.3'%3E%3Cpath d='M30 0 C30 0 45 15 30 30 C15 15 30 0 30 0Z M0 30 C0 30 15 45 30 30 C15 15 0 30 0 30Z M60 30 C60 30 45 45 30 30 C45 15 60 30 60 30Z M30 60 C30 60 15 45 30 30 C45 45 30 60 30 60Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+
+  .header-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+
+  .logo-motif {
+    width: 56px; height: 56px; margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .logo-motif svg { width: 56px; height: 56px; }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: var(--krem);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .header .subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--hijau-muda);
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+  }
+
+  .header .tagline {
+    color: var(--krem-gelap);
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ---- INTRO ---- */
+  .intro {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 20px;
+    text-align: center;
+  }
+
+  .intro p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-soft);
+    margin-bottom: 12px;
+  }
+
+  .intro-phases {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 24px 0;
+  }
+
+  .phase-chip {
+    background: var(--hijau);
+    color: var(--krem);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .phase-chip.tembaga { background: var(--tembaga); }
+  .phase-chip.hijau-mid { background: var(--hijau-mid); }
+
+  /* ---- WEEK NAV ---- */
+  .week-nav {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px 32px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+
+  .week-btn {
+    background: var(--putih);
+    border: 1.5px solid var(--krem-gelap);
+    color: var(--text-soft);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 8px 4px;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+  .week-btn:hover, .week-btn.active {
+    background: var(--hijau);
+    border-color: var(--hijau);
+    color: var(--krem);
+  }
+
+  /* ---- DAY GRID ---- */
+  .days-section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+
+  .week-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--coklat);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--krem-gelap);
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .week-label .phase-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--hijau-muda);
+    color: var(--hijau);
+  }
+
+  .day-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+
+  .day-card {
+    background: var(--putih);
+    border: 1.5px solid var(--krem-gelap);
+    border-radius: var(--radius);
+    padding: 10px 6px 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    position: relative;
+  }
+
+  .day-card:hover {
+    border-color: var(--tembaga);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(184,113,42,0.12);
+  }
+
+  .day-card.done {
+    background: var(--hijau);
+    border-color: var(--hijau);
+  }
+
+  .day-card.done .day-num { color: var(--krem); }
+  .day-card.done .day-name { color: var(--hijau-muda); }
+  .day-card.done .day-check { display: block; }
+
+  .day-card.active-day {
+    border-color: var(--tembaga);
+    background: #FFF8F0;
+  }
+
+  .day-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--coklat);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .day-name {
+    font-size: 0.6rem;
+    color: var(--text-soft);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .day-check {
+    display: none;
+    font-size: 0.7rem;
+    margin-top: 2px;
+    color: var(--hijau-muda);
+  }
+
+  /* ---- MODAL ---- */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(45,80,22,0.6);
+    z-index: 100;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+    backdrop-filter: blur(3px);
+  }
+
+  .modal-overlay.open {
+    display: flex;
+  }
+
+  .modal {
+    background: var(--putih);
+    width: 100%;
+    max-width: 640px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+    padding: 0 0 40px;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-header {
+    background: var(--hijau);
+    padding: 28px 28px 24px;
+    border-radius: 16px 16px 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: var(--krem);
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .modal-close:hover { background: rgba(255,255,255,0.25); }
+
+  .modal-day-num {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--hijau-muda);
+    margin-bottom: 4px;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--krem);
+    line-height: 1.2;
+  }
+
+  .modal-phase {
+    font-size: 0.72rem;
+    color: var(--hijau-muda);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  .modal-body { padding: 24px 28px 0; }
+
+  .modal-section {
+    margin-bottom: 24px;
+  }
+
+  .modal-section h3 {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tembaga);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .modal-section h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--krem-gelap);
+  }
+
+  .modal-section p {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-soft);
+  }
+
+  .ritual-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ritual-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+
+  .ritual-list li .icon {
+    font-size: 0.95rem;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .meal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .meal-card {
+    background: var(--krem);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    border-left: 3px solid var(--tembaga-muda);
+  }
+
+  .meal-card .meal-time {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    color: var(--tembaga);
+    margin-bottom: 4px;
+  }
+
+  .meal-card .meal-name {
+    font-size: 0.88rem;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .meal-card .meal-desc {
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    line-height: 1.4;
+  }
+
+  .jamu-box {
+    background: linear-gradient(135deg, #F0F7E8, #E8F0DA);
+    border: 1px solid var(--hijau-muda);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--hijau);
+    line-height: 1.6;
+  }
+
+  .jamu-box strong { color: var(--hijau); }
+
+  .doa-box {
+    background: var(--krem-gelap);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+  }
+
+  .doa-arabic {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: var(--hijau);
+    margin-bottom: 6px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .doa-trans {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .mark-done-btn {
+    width: calc(100% - 56px);
+    margin: 24px 28px 0;
+    padding: 14px;
+    background: var(--hijau);
+    color: var(--krem);
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .mark-done-btn:hover { background: var(--hijau-mid); }
+  .mark-done-btn.done-state { background: var(--tembaga); }
+
+  .nav-btns {
+    display: flex;
+    gap: 8px;
+    padding: 12px 28px 0;
+  }
+
+  .nav-btn {
+    flex: 1;
+    padding: 10px;
+    border: 1.5px solid var(--krem-gelap);
+    background: none;
+    color: var(--text-soft);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+  }
+
+  .nav-btn:hover { border-color: var(--hijau); color: var(--hijau); }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* ---- PROGRESS BAR ---- */
+  .progress-section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px 8px;
+  }
+
+  .progress-bar-wrap {
+    background: var(--krem-gelap);
+    border-radius: 10px;
+    height: 6px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--hijau), var(--hijau-mid));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-label {
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    text-align: right;
+  }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    background: var(--coklat);
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--krem-gelap);
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+
+  .footer .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--krem);
+    margin-bottom: 6px;
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 500px) {
+    .header h1 { font-size: 2.1rem; }
+    .week-nav { grid-template-columns: repeat(4, 1fr); }
+    .day-grid { grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .day-card { padding: 7px 3px 6px; }
+    .day-num { font-size: 0.95rem; }
+    .day-name { font-size: 0.5rem; }
+    .meal-grid { grid-template-columns: 1fr; }
+    .modal { max-height: 95vh; }
+  }
+
+  .all-weeks { display: block; }
+  .week-section { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-motif">
+      <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M28 4 C28 4 44 20 28 28 C12 20 28 4 28 4Z" fill="#8FB87A" opacity="0.8"/>
+        <path d="M4 28 C4 28 20 44 28 28 C20 12 4 28 4 28Z" fill="#8FB87A" opacity="0.6"/>
+        <path d="M52 28 C52 28 36 44 28 28 C36 12 52 28 52 28Z" fill="#8FB87A" opacity="0.6"/>
+        <path d="M28 52 C28 52 12 36 28 28 C44 36 28 52 28 52Z" fill="#8FB87A" opacity="0.8"/>
+        <circle cx="28" cy="28" r="5" fill="#D4975A"/>
+      </svg>
+    </div>
+    <h1>Sakina</h1>
+    <p class="subtitle">Program Berpantang 44 Hari</p>
+    <p class="tagline">The 4th Trimester · Postpartum Refugio</p>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro">
+  <p>Selamat datang di program pemulihan pascapersalinan Anda. Empat puluh empat hari untuk beristirahat, dipulihkan, dan menjadi diri Anda yang baru.</p>
+  <p>Every day has its own intention — rest, nourishment, ritual, and care.</p>
+  <div class="intro-phases">
+    <span class="phase-chip">Days 1–7 · Pemulihan Awal</span>
+    <span class="phase-chip hijau-mid">Days 8–21 · Penguatan</span>
+    <span class="phase-chip tembaga">Days 22–44 · Kebangkitan</span>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-section">
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 of 44 days complete</div>
+</div>
+
+<!-- WEEK NAV -->
+<div class="week-nav" id="weekNav">
+  <button class="week-btn active" onclick="scrollToWeek(1)">Week 1</button>
+  <button class="week-btn" onclick="scrollToWeek(2)">Week 2</button>
+  <button class="week-btn" onclick="scrollToWeek(3)">Week 3</button>
+  <button class="week-btn" onclick="scrollToWeek(4)">Week 4</button>
+  <button class="week-btn" onclick="scrollToWeek(5)">Week 5</button>
+  <button class="week-btn" onclick="scrollToWeek(6)">Week 6</button>
+  <button class="week-btn" onclick="scrollToWeek(7, true)">Day 43–44</button>
+</div>
+
+<!-- DAY GRID -->
+<div class="days-section" id="daysSection">
+  <!-- Generated by JS -->
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <div class="modal-day-num" id="modalDayNum">Day 1</div>
+      <div class="modal-title" id="modalTitle">Mula Berpantang</div>
+      <div class="modal-phase" id="modalPhase">Phase: Pemulihan Awal</div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="nav-btns">
+      <button class="nav-btn" id="prevBtn" onclick="navigateDay(-1)">← Previous Day</button>
+      <button class="nav-btn" id="nextBtn" onclick="navigateDay(1)">Next Day →</button>
+    </div>
+    <button class="mark-done-btn" id="markDoneBtn" onclick="toggleDone()">Mark Day as Complete</button>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-name">Sakina</div>
+  <div>سكينة · Ketenangan · Tranquility</div>
+  <div style="margin-top:8px; opacity:0.6;">A postpartum refugio rooted in the Malay & Indonesian pantang tradition.</div>
+</div>
+
+<script>
+// ---- DATA ----
+
+const phases = [
+  { days: [1,7],   name: 'Pemulihan Awal',  tag: 'Early Recovery',    color: '#4A7C2F' },
+  { days: [8,21],  name: 'Penguatan',        tag: 'Strengthening',     color: '#2D5016' },
+  { days: [22,44], name: 'Kebangkitan',      tag: 'Awakening',         color: '#B8712A' },
+];
+
+function getPhase(d) {
+  if (d <= 7)  return phases[0];
+  if (d <= 21) return phases[1];
+  return phases[2];
+}
+
+const doaList = [
+  { arabic: 'رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ', trans: 'My Lord, I am in absolute need of the good You send me.' },
+  { arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ', trans: 'O Allah, I ask You for wellness.' },
+  { arabic: 'حَسْبِيَ اللَّهُ وَنِعْمَ الْوَكِيلُ', trans: 'Allah is sufficient for me; He is the best Guardian.' },
+  { arabic: 'رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ', trans: 'Our Lord, grant us from our spouses and offspring comfort to our eyes.' },
+  { arabic: 'اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا', trans: 'O Allah, bless us in what You have provided for us.' },
+  { arabic: 'رَبِّ اشْرَحْ لِي صَدْرِي', trans: 'My Lord, expand for me my chest [with assurance].' },
+  { arabic: 'اللَّهُمَّ اجْعَلْنَا شَاكِرِينَ', trans: 'O Allah, make us among those who are grateful.' },
+];
+
+const meals = {
+  // Phase 1: Days 1-7 — very gentle, warming
+  1: { pagi: ['Bubur Nasi Ginger', 'Slow-cooked rice porridge with old ginger & sesame oil'], tengah: ['Sup Ayam Herba', 'Herbal black chicken soup with red dates & goji berry'], malam: ['Sayur Bayam Tumis', 'Stir-fried spinach in sesame, with steamed white fish'] },
+  2: { pagi: ['Oatmeal Kurma', 'Warm oats with dates, honey & a pinch of black seed'], tengah: ['Sesame Chicken Rice', 'Confinement sesame oil chicken on warming brown rice'], malam: ['Sup Tulang Merah', 'Slow red bone broth with daikon & old ginger'] },
+  3: { pagi: ['Roti Wholemeal + Telur', 'Wholemeal toast, soft-boiled egg, ginger tea'], tengah: ['Garang Asam Ikan Haruan', 'Snakehead fish in tamarind broth — classic pantang'], malam: ['Nasi Putih + Ayam Bakar', 'Plain rice with herb-marinated grilled chicken'] },
+  4: { pagi: ['Bubur Kacang Hijau', 'Mung bean porridge with coconut milk & pandan'], tengah: ['Sup Bening Bayam', 'Clear spinach soup with corn & garlic'], malam: ['Ikan Bakar Halia', 'Grilled fish with ginger sambal, ulam raja salad'] },
+  5: { pagi: ['Nasi Lemak Pantang', 'Coconut rice (no sambal), cucumber, soft egg'], tengah: ['Kari Ayam Ringan', 'Light chicken curry, low chilli, coconut milk'], malam: ['Sup Lobak + Daging', 'Daikon & beef shin soup, deeply nourishing'] },
+  6: { pagi: ['Smoothie Pisang + Susu', 'Banana, oat milk, dates & black seed blended warm'], tengah: ['Lontong Kuah Lodeh', 'Rice cakes in vegetable coconut broth'], malam: ['Ikan Siakap Steam Halia', 'Steamed barramundi with ginger, sesame & soy'] },
+  7: { pagi: ['Bubur Jagung', 'Sweet corn congee with coconut milk & pandan leaf'], tengah: ['Ayam Percik Rebus', 'Poached chicken in coconut percik sauce, soft rice'], malam: ['Sup Sayur Campur', 'Mixed vegetable clear broth with threadfin fish'] },
+  // Phase 2: Days 8-21 — building strength
+  8: { pagi: ['Nasi Putih + Lauk 3', 'Rice, fried egg, stir-fried kangkung, sambal belacan (mild)'], tengah: ['Rendang Ayam', 'Slow-braised dry rendang chicken with ketupat'], malam: ['Sup Tomato Daging', 'Tomato beef soup with potato, warming & iron-rich'] },
+  9: { pagi: ['Roti Canai + Dal', 'Flaky roti with lentil dal — protein-rich morning'], tengah: ['Gulai Ikan Tenggiri', 'Mackerel in golden turmeric gulai gravy'], malam: ['Soto Ayam', 'Javanese chicken soto with vermicelli & shredded egg'] },
+  10: { pagi: ['Nasi Goreng Pantang', 'Confinement fried rice — ginger, garlic, no MSG'], tengah: ['Asam Pedas Ikan', 'Sour spicy fish — tamarind broth, lady\'s finger'], malam: ['Sup Kepala Ikan', 'Fish head soup with tomato, ginger & tofu'] },
+  11: { pagi: ['Sandwich Telur + Avocado', 'Egg & avocado on wholemeal, turmeric latte'], tengah: ['Ayam Masak Merah', 'Chicken in red spiced tomato gravy, with nasi putih'], malam: ['Sayur Lodeh', 'Vegetables in coconut milk broth, with tempeh'] },
+  12: { pagi: ['Bubur Ubi Kayu', 'Tapioca porridge with coconut milk & gula Melaka'], tengah: ['Daging Bakar + Ulam', 'Grilled beef with fresh herb salad & sambal belacan'], malam: ['Sup Buntut', 'Oxtail soup — collagen-rich, deeply restorative'] },
+  13: { pagi: ['Laksa Lemak (ringan)', 'Coconut laksa, lighter spice for Week 2'], tengah: ['Ikan Goreng + Nasi Kunyit', 'Fried fish with turmeric rice & acar timun'], malam: ['Sup Kambing Halia', 'Mutton & ginger soup with potatoes'] },
+  14: { pagi: ['Roti Wholemeal + Peanut Butter', 'With banana & a cup of red date tea'], tengah: ['Nasi Himpit + Kuah Kacang', 'Compressed rice with peanut sauce & satay chicken'], malam: ['Stir-fry Sayur + Tofu', 'Garlic vegetables with silken tofu in oyster sauce'] },
+  15: { pagi: ['Congee Ikan Bilis', 'Anchovy rice porridge with fried shallots & ginger'], tengah: ['Kari Daging Kentang', 'Beef potato curry, mildly spiced, with bread'], malam: ['Sup Miso Fusion', 'Japanese-Malay fusion miso with tofu & seaweed'] },
+  16: { pagi: ['Pancake Pisang Oat', 'Oat banana pancakes, honey drizzle, black seed sprinkle'], tengah: ['Ayam Goreng Berempah', 'Spiced fried chicken with buttered rice & salad'], malam: ['Sayur Masak Lemak Cili Padi', 'Vegetables in coconut chilli — reintroducing spice'] },
+  17: { pagi: ['Bubur Lambuk', 'Ramadan-style spiced rice porridge, all-day comfort'], tengah: ['Ikan Bakar Daun Pisang', 'Fish grilled in banana leaf, with ulam & sambal'], malam: ['Sup Tulang Kambing', 'Spiced lamb bone broth with turmeric & coriander'] },
+  18: { pagi: ['French Toast Roti Wholemeal', 'Egg-dipped toast with honey & fresh fruit'], tengah: ['Nasi Tomato + Ayam Kurma', 'Tomato rice with kurma chicken — festive & warm'], malam: ['Dalca Sayur', 'Lentil & vegetable dalca, with garlic naan'] },
+  19: { pagi: ['Idli + Coconut Chutney', 'Steamed rice cakes, light & digestible'], tengah: ['Laksa Johor', 'Spaghetti laksa in thick fish gravy — comfort classic'], malam: ['Sup Ayam Bawang Putih', 'Forty-clove garlic chicken soup, immunity-boosting'] },
+  20: { pagi: ['Nasi Kerabu (tanpa pedas)', 'Blue herb rice with kerisik chicken, no raw sambal'], tengah: ['Beef Stroganoff Halal', 'Creamy halal beef with mushroom, on white rice'], malam: ['Tom Yam Ayam (ringan)', 'Light tom yam chicken — gentle heat, fragrant'] },
+  21: { pagi: ['Smoothie Bowl Tropika', 'Mango, papaya, coconut yoghurt, granola & dates'], tengah: ['Nasi Padang Lengkap', 'A full Padang spread — your 3-week milestone meal!'], malam: ['Sup Bening Labu', 'Clear pumpkin soup with ginger & fresh herbs'] },
+  // Phase 3: Days 22-44 — returning to full life
+  22: { pagi: ['Nasi Lemak Penuh', 'Full nasi lemak with sambal, anchovies & egg'], tengah: ['Ayam Bakar Madu', 'Honey-glazed grilled chicken with potato wedges'], malam: ['Sup Sayur Campur Bening', 'Clear mixed veg soup — light after the day\'s richness'] },
+  23: { pagi: ['Avocado Toast + Telur Rebus', 'With chilli flakes & a dusting of turmeric'], tengah: ['Mee Rebus Johor', 'Thick sweet potato gravy noodles with prawns'], malam: ['Ikan Siakap 3 Rasa', 'Three-flavour barramundi — sweet, sour, spicy'] },
+  24: { pagi: ['Bubur Gandum + Pisang', 'Wheat porridge with banana, honey & chia seeds'], tengah: ['Nasi Briyani Ayam', 'Fragrant basmati briyani with yoghurt raita'], malam: ['Sayur Stir-fry + Udang', 'Prawn & vegetable stir-fry with ginger sauce'] },
+  25: { pagi: ['Roti Jala + Kari Ayam', 'Lacy crepe with yellow chicken curry — weekend feel'], tengah: ['Sate Ayam + Nasi Impit', 'Charcoal satay, peanut sauce & ketupat'], malam: ['Sup Merah Daging', 'Rich red meat soup with root vegetables'] },
+  26: { pagi: ['Granola + Coconut Yoghurt', 'With fresh mango, honey & pumpkin seeds'], tengah: ['Nasi Goreng Kampung', 'Village-style kampung fried rice, full flavour'], malam: ['Gulai Tempeh + Sayur', 'Tempeh in coconut gulai with mixed greens'] },
+  27: { pagi: ['Kuih Apam Balik', 'Sweet peanut pancake turnover — Malaysian classic'], tengah: ['Ikan Goreng Cili + Nasi', 'Crispy chilli fish with steamed rice & pickles'], malam: ['Sup Ayam Bening Herba', 'Herb-clear chicken soup to end a full day'] },
+  28: { pagi: ['Nasi Lemak Bungkus', 'Wrapped nasi lemak — four weeks done!'], tengah: ['Lamb Chop Masala', 'Masala-spiced lamb chop, mashed potato, salad'], malam: ['Mee Sup Daging', 'Beef noodle soup — rich & warming, Malay-style'] },
+  29: { pagi: ['Waffle Pisang + Madu', 'Banana waffle with honey, dates & almond flakes'], tengah: ['Nasi Kukus Ayam Berempah', 'Steamed rice with spiced chicken — Kedah-style'], malam: ['Ikan Patin Tempoyak', 'Catfish in fermented durian gravy — bold & traditional'] },
+  30: { pagi: ['Bubur Cha-Cha Pantang', 'Sweet potato, yam & coconut milk pudding'], tengah: ['Ayam Masak Hitam', 'Dark soy & palm sugar chicken — Javanese influence'], malam: ['Sayur Asem', 'Indonesian clear tamarind vegetable soup'] },
+  31: { pagi: ['Nasi Kuning + Telur Balado', 'Turmeric rice with spiced balado egg — Indonesian'], tengah: ['Opor Ayam', 'Javanese white coconut chicken, gentle & rich'], malam: ['Sup Jawa Bening', 'Clear Javanese broth with vegetables & tempeh'] },
+  32: { pagi: ['Roti Tawar + Selai Kaya', 'Toast with pandan kaya jam & soft-boiled egg'], tengah: ['Gado-Gado', 'Indonesian peanut salad — tofu, tempeh, vegetables'], malam: ['Soto Betawi', 'Jakarta-style beef soto with coconut milk broth'] },
+  33: { pagi: ['Pisang Goreng + Teh Halia', 'Banana fritters with ginger tea — morning comfort'], tengah: ['Mie Ayam Bakso', 'Chicken noodle with meatball — Indonesian comfort'], malam: ['Sup Iga Sapi', 'Beef rib soup with potatoes & carrots, Javanese'] },
+  34: { pagi: ['Oat + Coconut Milk + Dates', 'Overnight oats, warm-served with black seed'], tengah: ['Nasi Rawon', 'Black keluak beef soup with rice — East Javanese'], malam: ['Tumis Kangkung Belacan', 'Stir-fry water spinach, fried fish side'] },
+  35: { pagi: ['Bubur Ketan Hitam', 'Black glutinous rice porridge, coconut milk'], tengah: ['Ayam Penyet', 'Smashed crispy chicken with sambal & lalapan salad'], malam: ['Bening Bayam Jagung', 'Clear spinach & sweetcorn soup with garlic'] },
+  36: { pagi: ['Nasi Uduk', 'Jakarta coconut rice, fried chicken & tempeh'], tengah: ['Rendang Daging Sapi', 'Slow dry beef rendang — Minangkabau heritage'], malam: ['Sup Kimlo', 'Chinese-Indonesian glass noodle vegetable soup'] },
+  37: { pagi: ['Martabak Telur Mini', 'Savoury egg pancake, green onion & sesame'], tengah: ['Ikan Bakar Jimbaran', 'Balinese-style grilled fish with sambal matah'], malam: ['Sayur Bobor', 'Sundanese vegetable & coconut leaf soup'] },
+  38: { pagi: ['Bubur Manado', 'Manadonese rice porridge with mixed vegetables'], tengah: ['Bebek Goreng + Lalapan', 'Crispy fried duck with fresh herb salad & sambal'], malam: ['Sup Ikan Kuning', 'Yellow spiced fish soup, turmeric & lemongrass'] },
+  39: { pagi: ['Roti Bakar Kaya + Telur Kopitiam', 'Kopitiam-style kaya toast with half-boiled eggs'], tengah: ['Nasi Liwet', 'Solo-style coconut rice with chicken opor & salted egg'], malam: ['Sayur Tumis Campur', 'Mixed stir-fry — vegetables, tofu, mushroom'] },
+  40: { pagi: ['Kolak Pisang Ubi', 'Banana & sweet potato in warm coconut palm sugar'], tengah: ['Semur Daging Kentang', 'Indonesian beef & potato semur stew, nutmeg-spiced'], malam: ['Sup Merah Seafood', 'Red seafood soup — prawn, fish, calamari'] },
+  41: { pagi: ['Pancake Pandan', 'Green pandan pancakes with coconut syrup'], tengah: ['Ayam Geprek Halal', 'Smashed crispy chicken, sambal bawang, steamed rice'], malam: ['Bening Tofu Bayam', 'Clear tofu & spinach broth — light close to finish'] },
+  42: { pagi: ['Nasi Gurih + Tempe Orek', 'Savoury rice with sweet soy tempeh strips'], tengah: ['Laksa Bogor', 'Bogor-style chicken laksa in yellow coconut broth'], malam: ['Sup Buntut Spesial', 'Celebratory oxtail soup — you are almost there'] },
+  43: { pagi: ['Bubur Sumsum', 'Rice flour pudding with pandan & palm sugar — comfort'], tengah: ['Nasi Padang Final', 'Full spread: rendang, gulai, balado, sayur nangka'], malam: ['Sup Ayam Kampung Bening', 'Free-range clear chicken soup — penultimate night'] },
+  44: { pagi: ['Tumpeng Mini', 'Mini cone rice with all your favourite sides — celebration!'], tengah: ['Sate Campur + Lontong', 'Mixed satay platter, lontong, peanut sauce, acar'], malam: ['Makan Besar Keluarga', 'Family feast — invite those who supported you through 44 days'] },
+};
+
+const jamuSchedule = {
+  1:  'Jamu minum: Air rebusan jahe & kunyit. Segelas hangat setelah makan siang.',
+  2:  'Param badan: Campuran kunyit, jahe & serai dioleskan ringan ke perut bagian bawah.',
+  3:  'Jamu minum: Wedang uwuh — jahe, cengkeh, kayu manis, gula batu.',
+  4:  'Tapel: Pasta herbal kunyit & jahe ditempelkan di perut ±30 menit. Bantu kempis perut.',
+  5:  'Jamu minum: Air asam jawa dengan gula aren & sedikit kapur sirih. Pendingin darah.',
+  6:  'Pilis kepala: Pasta jahe tipis di dahi. Bantu hilangkan angin & sakit kepala.',
+  7:  'Urutan pertama: 60 menit urut Jawa + tepuk/kerok ringan bila perlu.',
+  8:  'Jamu minum: Beras kencur — stamina & nafsu makan.',
+  9:  'Mandi herbal: Air rebusan serai, pandan & bunga melati. Segar & wangi.',
+  10: 'Tapel & param: Hari ke-10, aplikasi lengkap pagi & petang.',
+  11: 'Jamu minum: Kunyit asam — kunyit, asam jawa, gula aren. Cantik & kuat.',
+  12: 'Urutan kedua: 60–90 menit urut Jawa, fokus punggung & kaki.',
+  13: 'Pilis & param: Kepala & badan. Wangi serai & kenanga.',
+  14: 'Jamu minum: Galian singset — herbal kencangkan perut & rahim.',
+  15: 'Mandi susu herbal: Susu, madu & bunga melati dalam air mandi.',
+  16: 'Tapel: Setelah mandi, tempel pasta kunyit jahe semalaman.',
+  17: 'Urutan ketiga: Full-body, 90 menit. Fokus pinggul & betis.',
+  18: 'Jamu minum: Cabe puyang — nyeri & pegal-pegal hilang.',
+  19: 'Pilis & mandi bunga setaman.',
+  20: 'Tapel & param hari ke-20. Milestone separuh perjalanan!',
+  21: 'Urutan keempat: 3-week celebration massage. 90 menit penuh.',
+  22: 'Jamu minum: Kunyit asam susu — tambah tenaga & kecantikan.',
+  23: 'Mandi rempah: Kayu manis, cengkeh & kapulaga dalam air mandi.',
+  24: 'Tapel pagi & sore.',
+  25: 'Urutan kelima.',
+  26: 'Jamu minum: Uyah usap — herbal garam laut & jahe merah.',
+  27: 'Param halus: Fokus dada & bahu untuk memperlancar ASI.',
+  28: 'Urutan keenam: 4-week milestone massage.',
+  29: 'Mandi bunga setaman: Mawar, melati, kenanga & serai.',
+  30: 'Jamu minum: Galian singset hari ke-30.',
+  31: 'Tapel terakhir yang intens — perut & pinggang.',
+  32: 'Urutan ketujuh.',
+  33: 'Jamu minum: Kencur, jahe merah & madu — stamina kembali.',
+  34: 'Pilis & mandi wangi.',
+  35: 'Urutan kedelapan: Fokus kaki & sirkulasi.',
+  36: 'Jamu penutup: Campuran seluruh herbal — beras kencur, kunyit asam, cabe puyang.',
+  37: 'Mandi susu & bunga terakhir.',
+  38: 'Param terakhir: Seluruh badan.',
+  39: 'Urutan kesembilan: Hampir selesai.',
+  40: 'Jamu minum: Kunyit asam terakhir.',
+  41: 'Tapel penutup seminggu terakhir.',
+  42: 'Urutan kesepuluh — penultimate massage.',
+  43: 'Mandi rempah penutup. Malam terakhir dengan herbal pantang.',
+  44: 'Mandi penuh bunga setaman: Selamat! Pantang selesai. Kamu luar biasa.',
+};
+
+const intentions = [
+  'Today, rest is your only task. Let your body begin its quiet work.',
+  'Your body birthed a soul into the world. Today, honour that.',
+  'The first week is for silence, warmth, and being held.',
+  'You do not need to be productive. You need to be present.',
+  'Rest is sacred. Healing is happening even when you cannot feel it.',
+  'Breathe. The house can wait. The world can wait. You cannot.',
+  'Seven days in. Your body is already different from the one that gave birth.',
+  'Week two begins. Energy returns slowly — receive it gently.',
+  'Every meal is medicine. Every hour of sleep is repair.',
+  'Your milk is a miracle. Your rest makes it possible.',
+  'You are allowed to feel everything — joy, grief, love, exhaustion — all at once.',
+  'Motherhood is not a performance. You are doing it exactly right.',
+  'Two weeks done. You are stronger than you were yesterday.',
+  'Gentleness is not weakness. It is how you rebuild.',
+  'Your baby needs a rested mother more than a perfect one.',
+  'Ask for help freely. Receiving care is also a practice.',
+  'Halfway through week three. The body remembers its own wisdom.',
+  'You are in the middle of the hardest and most beautiful passage of your life.',
+  'Nourish yourself as you nourish your child — with patience and love.',
+  'Notice what your body is asking for today. Trust the answer.',
+  'Three weeks. Tiga minggu. You have moved through so much.',
+  'Phase three begins. You are beginning to come back to yourself.',
+  'The world is still here, and you will return to it — on your terms.',
+  'Your body is extraordinary. Remind it you know this.',
+  'Rest does not end today. Carry it with you into the weeks ahead.',
+  'Who you are becoming is as important as who you have been.',
+  'Make space for silence. Something important is still being born in you.',
+  'Four weeks. Empat minggu. A full turning of the moon.',
+  'You have been the earth from which new life grew. Now the earth rests.',
+  'Every sip of jamu is a letter your ancestors wrote for you.',
+  'Day 31. You are past the hardest gradient. Feel that.',
+  'The Indonesian in you knows: a woman is whole, not just her body.',
+  'Your child will not remember these 44 days. But you will.',
+  'Carry your healing like a slow river — not rushing, always moving.',
+  'Five weeks. The horizon is visible. Walk toward it slowly.',
+  'Pantang is almost over. Your new life waits with open arms.',
+  'You are not the same woman who entered this journey. That is the point.',
+  'The home you make now — in body, in spirit — is your child\'s first world.',
+  'Day 39. Five more to go. Each one a gift you give yourself.',
+  'Rest one last time as a woman in confinement. Tomorrow you begin something new.',
+  'Day 41. The last jamu, the last ritual bath — notice every detail.',
+  'Almost there. Hampir sampai.',
+  'Tomorrow is the last day. What do you want to carry with you?',
+  'Empat puluh empat hari. Selamat! You have done something ancient and extraordinary.',
+];
+
+// Day names
+const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const weekLabels = [
+  { w: 1, label: 'Week 1 · Days 1–7',   phase: 'Pemulihan Awal',  days: [1,2,3,4,5,6,7] },
+  { w: 2, label: 'Week 2 · Days 8–14',  phase: 'Penguatan',       days: [8,9,10,11,12,13,14] },
+  { w: 3, label: 'Week 3 · Days 15–21', phase: 'Penguatan',       days: [15,16,17,18,19,20,21] },
+  { w: 4, label: 'Week 4 · Days 22–28', phase: 'Kebangkitan',     days: [22,23,24,25,26,27,28] },
+  { w: 5, label: 'Week 5 · Days 29–35', phase: 'Kebangkitan',     days: [29,30,31,32,33,34,35] },
+  { w: 6, label: 'Week 6 · Days 36–42', phase: 'Kebangkitan',     days: [36,37,38,39,40,41,42] },
+  { w: 7, label: 'Final · Days 43–44',  phase: 'Kebangkitan',     days: [43,44] },
+];
+
+let doneDays = JSON.parse(localStorage.getItem('sakinaDone') || '[]');
+let currentDay = null;
+
+// ---- RENDER GRID ----
+function renderGrid() {
+  const section = document.getElementById('daysSection');
+  section.innerHTML = '';
+
+  weekLabels.forEach(wk => {
+    const wDiv = document.createElement('div');
+    wDiv.className = 'week-section';
+    wDiv.id = `week-${wk.w}`;
+
+    const phase = getPhase(wk.days[0]);
+    wDiv.innerHTML = `<div class="week-label">${wk.label} <span class="phase-tag">${wk.phase}</span></div>`;
+
+    const grid = document.createElement('div');
+    grid.className = 'day-grid';
+
+    wk.days.forEach(d => {
+      const done = doneDays.includes(d);
+      const card = document.createElement('div');
+      card.className = 'day-card' + (done ? ' done' : '');
+      card.onclick = () => openDay(d);
+      // Simple day-of-week cycling from day 1 = Monday
+      const dow = dayNames[(d) % 7];
+      card.innerHTML = `
+        <div class="day-num">${d}</div>
+        <div class="day-name">${dow}</div>
+        <div class="day-check">✓</div>
+      `;
+      grid.appendChild(card);
+    });
+
+    wDiv.appendChild(grid);
+    section.appendChild(wDiv);
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = Math.round((doneDays.length / 44) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${doneDays.length} of 44 days complete`;
+}
+
+// ---- MODAL ----
+function openDay(d) {
+  currentDay = d;
+  const phase = getPhase(d);
+  const meal = meals[d] || meals[((d - 1) % 7) + 1];
+  const jamu = jamuSchedule[d] || 'Jamu minum pagi: Air jahe & kunyit hangat.';
+  const intention = intentions[d - 1];
+  const doa = doaList[(d - 1) % doaList.length];
+  const done = doneDays.includes(d);
+
+  document.getElementById('modalDayNum').textContent = `Day ${d} of 44`;
+  document.getElementById('modalTitle').textContent = getDayTitle(d);
+  document.getElementById('modalPhase').textContent = `Phase: ${phase.name} · ${phase.tag}`;
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-section">
+      <h3>Intention</h3>
+      <p style="font-style:italic; color: var(--coklat-muda);">"${intention}"</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Meals Today</h3>
+      <div class="meal-grid">
+        <div class="meal-card">
+          <div class="meal-time">🌅 Pagi · Breakfast</div>
+          <div class="meal-name">${meal.pagi[0]}</div>
+          <div class="meal-desc">${meal.pagi[1]}</div>
+        </div>
+        <div class="meal-card">
+          <div class="meal-time">☀️ Tengah Hari · Lunch</div>
+          <div class="meal-name">${meal.tengah[0]}</div>
+          <div class="meal-desc">${meal.tengah[1]}</div>
+        </div>
+        <div class="meal-card" style="grid-column: span 2">
+          <div class="meal-time">🌙 Malam · Dinner</div>
+          <div class="meal-name">${meal.malam[0]}</div>
+          <div class="meal-desc">${meal.malam[1]}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3>Jamu & Rawatan</h3>
+      <div class="jamu-box">${jamu}</div>
+    </div>
+
+    <div class="modal-section">
+      <h3>Rituals for Today</h3>
+      <ul class="ritual-list">
+        ${getRituals(d).map(r => `<li><span class="icon">${r[0]}</span><span>${r[1]}</span></li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="modal-section">
+      <h3>Doa Hari Ini</h3>
+      <div class="doa-box">
+        <div class="doa-arabic">${doa.arabic}</div>
+        <div class="doa-trans">${doa.trans}</div>
+      </div>
+    </div>
+  `;
+
+  const btn = document.getElementById('markDoneBtn');
+  btn.textContent = done ? '✓ Day Complete' : 'Mark Day as Complete';
+  btn.className = 'mark-done-btn' + (done ? ' done-state' : '');
+
+  document.getElementById('prevBtn').disabled = d <= 1;
+  document.getElementById('nextBtn').disabled = d >= 44;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function getDayTitle(d) {
+  const titles = {
+    1: 'Hari Pertama · First Day', 7: 'Satu Minggu · One Week',
+    14: 'Dua Minggu · Two Weeks', 21: 'Tiga Minggu · Three Weeks',
+    28: 'Empat Minggu · Four Weeks', 40: 'Hampir Sampai · Almost There',
+    44: 'Selesai · You Did It'
+  };
+  return titles[d] || `Hari Ke-${d} · Day ${d}`;
+}
+
+function getRituals(d) {
+  const phase = getPhase(d);
+  const base = [
+    ['🕌', 'Solat & doa pagi sebelum aktiviti apa pun'],
+    ['💧', 'Minum segelas air suam dengan madu & halia'],
+    ['🌿', 'Jamu atau rawatan herbal hari ini (lihat jadual)'],
+    ['🍽️', 'Tiga waktu makan penuh — jangan skip'],
+    ['😴', 'Tidur bila bayi tidur — ini bukan pilihan, ini preskripsi'],
+  ];
+  if (d % 7 === 0) base.push(['💆‍♀️', 'Urutan penuh hari ini — booking juru urut']);
+  if (d <= 7)  base.push(['🚫', 'Tiada tetamu hari ini — pemulihan memerlukan ketenangan']);
+  if (d > 7 && d <= 21) base.push(['🧘‍♀️', 'Nafas dalam 5 minit — tarik nafas 4 kiraan, lepas 6 kiraan']);
+  if (d > 21) base.push(['🚶‍♀️', 'Jalan kaki ringan 10–15 minit di dalam atau sekeliling rumah']);
+  if (d === 44) base.push(['🎉', 'Pantang selesai! Raikan bersama keluarga malam ini']);
+  return base;
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function navigateDay(dir) {
+  const next = currentDay + dir;
+  if (next >= 1 && next <= 44) openDay(next);
+}
+
+function toggleDone() {
+  if (doneDays.includes(currentDay)) {
+    doneDays = doneDays.filter(d => d !== currentDay);
+  } else {
+    doneDays.push(currentDay);
+  }
+  localStorage.setItem('sakinaDone', JSON.stringify(doneDays));
+  renderGrid();
+  openDay(currentDay);
+}
+
+function scrollToWeek(w, smooth = true) {
+  document.querySelectorAll('.week-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === w - 1);
+  });
+  const el = document.getElementById(`week-${w}`);
+  if (el) el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+}
+
+// ---- INIT ----
+renderGrid();
+</script>
+</body>
+</html>
