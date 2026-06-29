@@ -154,6 +154,30 @@
   }
 
   .week-section { margin-bottom: 8px; }
+
+  /* HOVER PREVIEW */
+  .day-preview { position: fixed; z-index: 200; background: var(--putih); border: 1.5px solid var(--krem-gelap); border-radius: 8px; padding: 12px 14px; min-width: 170px; max-width: 210px; box-shadow: 0 8px 24px rgba(45,80,22,0.15); pointer-events: none; opacity: 0; transition: opacity 0.15s ease; font-size: 0.8rem; }
+  .day-preview.visible { opacity: 1; }
+  .day-preview-day { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--coklat); margin-bottom: 5px; }
+  .day-preview-meal { color: var(--text-soft); line-height: 1.5; margin-bottom: 2px; font-size: 0.75rem; }
+  .day-preview-order { color: var(--tembaga); font-weight: 600; margin-top: 6px; font-size: 0.7rem; letter-spacing: 0.03em; }
+
+  /* ORDERING TASKS */
+  .order-card { border-radius: var(--radius); padding: 12px 14px; margin-bottom: 8px; }
+  .order-card.groceries { background: var(--krem); border-left: 3px solid var(--tembaga-muda); }
+  .order-card.herbal { background: #EFF7EB; border-left: 3px solid var(--hijau-muda); }
+  .order-card.massage { background: #F0F5FF; border-left: 3px solid #7B9ED9; }
+  .order-card.chinese { background: var(--merah-bg); border-left: 3px solid var(--merah-muda); }
+  .order-card.celebration { background: #FFF8E8; border-left: 3px solid var(--tembaga); }
+  .order-card .order-cat { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; margin-bottom: 3px; }
+  .order-card.groceries .order-cat { color: var(--tembaga); }
+  .order-card.herbal .order-cat { color: var(--hijau); }
+  .order-card.massage .order-cat { color: #5679C1; }
+  .order-card.chinese .order-cat { color: var(--merah); }
+  .order-card.celebration .order-cat { color: var(--tembaga); }
+  .order-card .order-task { font-size: 0.86rem; color: var(--text); font-weight: 500; margin-bottom: 3px; }
+  .order-card .order-lead { font-size: 0.72rem; color: var(--merah); font-weight: 600; margin-bottom: 6px; }
+  .order-card .order-items { font-size: 0.73rem; color: var(--text-soft); line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -223,6 +247,8 @@
     <button class="mark-done-btn" id="markDoneBtn" onclick="toggleDone()">Mark Day as Complete</button>
   </div>
 </div>
+
+<div id="dayPreview" class="day-preview"></div>
 
 <div class="footer">
   <div class="footer-name">Sakina</div>
@@ -499,6 +525,49 @@ const weekLabels = [
   { w:7, label:'Final · Days 43–44',  phase:'Kebangkitan',    days:[43,44] },
 ];
 
+const orderingTasks = {
+  1: [
+    { category:'groceries', icon:'🛒', task:'Order pantang groceries — Week 1', leadTime:'Order today · arrive by tomorrow', items:['Old ginger (halia tua)','Red dates (kurma merah)','Sesame oil (minyak wijen)','Turmeric & lemongrass','Longan (mata kucing)'] },
+    { category:'herbal', icon:'🌿', task:'Order jamu starter pack', leadTime:'2–3 day lead time — order now', items:['Beras kencur mix','Wedang uwuh herbs','Kunyit asam blend'] },
+    { category:'chinese', icon:'🔴', task:'Order Chinese herb pack — Week 1', leadTime:'1–2 day lead time', items:['Red dates 红枣','Longan 桂圆','Wolfberry 枸杞','Dang Gui 当归'] },
+  ],
+  4: [
+    { category:'chinese', icon:'🔴', task:'Order pig trotters (猪脚) for Day 6 猪脚醋', leadTime:'⚠️ 2-day lead — order today for Day 6', items:["Pig trotters 猪脚 (1–2 kg)",'Black vinegar 黑醋 (Zhenjiang)','Old ginger (5–6 large knobs)','Brown sugar / rock sugar'] },
+  ],
+  6: [
+    { category:'massage', icon:'💆', task:'Book urutan for Day 7 — first massage', leadTime:'⚠️ Book 24h in advance', items:['60-min traditional Jawa urut','Confirm therapist is pantang-trained'] },
+    { category:'groceries', icon:'🛒', task:'Restock Week 2 groceries', leadTime:'Order today for Week 2 start (Day 8)', items:['Fish maw 花胶','Black chicken 乌鸡','Pork kidney 猪腰','Snow fungus 银耳'] },
+  ],
+  11: [
+    { category:'massage', icon:'💆', task:'Book urutan for Day 12', leadTime:'⚠️ Book 24h in advance', items:['60–90 min, focus back & legs'] },
+    { category:'herbal', icon:'🌿', task:'Order 四物汤 herb pack (Weeks 2–3)', leadTime:'2-day lead', items:['Dang Gui 当归','Chuan Xiong 川芎','Shu Di Huang 熟地黄','Bai Shao 白芍'] },
+  ],
+  13: [
+    { category:'groceries', icon:'🛒', task:'Restock Week 3 groceries', leadTime:'Order today for Week 3 start (Day 15)', items:['Burdock root 牛蒡','Lotus root 莲藕','Green papaya (for soup)','Pork ribs'] },
+  ],
+  16: [
+    { category:'massage', icon:'💆', task:'Book urutan for Day 17 — third massage', leadTime:'⚠️ Book 24h in advance', items:['90 min, focus hips & calves'] },
+  ],
+  20: [
+    { category:'massage', icon:'💆', task:'Book urutan for Day 21 — 3-week milestone', leadTime:'⚠️ Book 24h in advance', items:['90 min full body — 3-week celebration'] },
+    { category:'groceries', icon:'🛒', task:'Week 4 grocery restock', leadTime:'Order today', items:['Pig trotters (for Week 4 猪脚醋)','十全大补 herb pack','Fish maw 花胶','Chestnuts 板栗'] },
+  ],
+  27: [
+    { category:'massage', icon:'💆', task:'Book urutan for Day 28 — 4-week milestone', leadTime:'⚠️ Book 24h in advance', items:['Full body — 4-week celebration massage'] },
+  ],
+  34: [
+    { category:'massage', icon:'💆', task:'Book urutan for Day 35', leadTime:'⚠️ Book 24h in advance', items:['Focus legs & circulation'] },
+    { category:'groceries', icon:'🛒', task:'Final phase grocery prep (Weeks 5–6)', leadTime:'Order today', items:["Bird's nest 燕窝 (optional premium)",'Grouper / barramundi (premium fish)','Shaoxing rice wine 花雕酒'] },
+  ],
+  41: [
+    { category:'massage', icon:'💆', task:'Book final urutan for Day 42', leadTime:'⚠️ Book 24h in advance', items:['Penultimate massage — full body'] },
+    { category:'celebration', icon:'🎉', task:'Plan Day 44 Celebration Feast', leadTime:'⚠️ 3-day lead — plan now!', items:['Invite family & friends','Book caterer or plan 满月酒 menu','Order celebration cake / kuih','Prepare announcement for social media'] },
+  ],
+  43: [
+    { category:'celebration', icon:'🎉', task:'Day 44 tomorrow — final confirmations', leadTime:'Last chance to confirm everything!', items:['Confirm guest list & headcount','Confirm food / catering delivery','Prepare tumpeng or 满月酒 spread'] },
+  ],
+};
+
 let doneDays = JSON.parse(localStorage.getItem('sakinaDone') || '[]');
 let currentDay = null;
 let currentTradition = 'both';
@@ -511,6 +580,34 @@ function setTradition(t) {
   if (t === 'malay')   btns[1].classList.add('active-malay');
   if (t === 'chinese') btns[2].classList.add('active-chinese');
   if (currentDay) renderModalBody(currentDay);
+}
+
+function showDayPreview(d, e) {
+  const meal = meals[d] || meals[((d-1)%7)+1];
+  const tasks = orderingTasks[d];
+  const orderNote = tasks ? `<div class="day-preview-order">📦 ${tasks.length} order/booking task${tasks.length>1?'s':''} today</div>` : '';
+  const preview = document.getElementById('dayPreview');
+  preview.innerHTML = `
+    <div class="day-preview-day">Day ${d} · ${getDayTitle(d).split('·')[0].trim()}</div>
+    <div class="day-preview-meal">🌅 ${meal.pagi[0].split('·')[0].trim()}</div>
+    <div class="day-preview-meal">☀️ ${meal.tengah[0].split('·')[0].trim()}</div>
+    <div class="day-preview-meal">🌙 ${meal.malam[0].split('·')[0].trim()}</div>
+    ${orderNote}`;
+  moveDayPreview(e);
+  preview.classList.add('visible');
+}
+function moveDayPreview(e) {
+  const el = document.getElementById('dayPreview');
+  const gap = 12;
+  let x = e.clientX + gap;
+  let y = e.clientY + gap;
+  if (x + 220 > window.innerWidth)  x = e.clientX - 220 - gap;
+  if (y + el.offsetHeight > window.innerHeight) y = e.clientY - el.offsetHeight - gap;
+  el.style.left = x + 'px';
+  el.style.top  = y + 'px';
+}
+function hideDayPreview() {
+  document.getElementById('dayPreview').classList.remove('visible');
 }
 
 function renderGrid() {
@@ -530,6 +627,11 @@ function renderGrid() {
       card.onclick = () => openDay(d);
       const dow = dayNames[d % 7];
       card.innerHTML = `<div class="day-num">${d}</div><div class="day-name">${dow}</div><div class="day-check">✓</div>`;
+      if (window.matchMedia('(hover: hover)').matches) {
+        card.addEventListener('mouseenter', e => showDayPreview(d, e));
+        card.addEventListener('mouseleave', hideDayPreview);
+        card.addEventListener('mousemove', e => moveDayPreview(e));
+      }
       grid.appendChild(card);
     });
     wDiv.appendChild(grid);
@@ -609,7 +711,20 @@ function renderModalBody(d) {
       <p style="font-style:italic; color: var(--merah); font-size:0.9rem; line-height:1.7;">${chPhase.wisdom}</p>
     </div>`;
 
-  let html = sharedSection;
+  const tasks = orderingTasks[d];
+  const orderSection = tasks ? `
+    <div class="modal-section">
+      <h3>📦 Order & Book Today</h3>
+      ${tasks.map(t => `
+        <div class="order-card ${t.category}">
+          <div class="order-cat">${t.icon} ${t.category}</div>
+          <div class="order-task">${t.task}</div>
+          <div class="order-lead">${t.leadTime}</div>
+          <div class="order-items">${t.items.join(' · ')}</div>
+        </div>`).join('')}
+    </div>` : '';
+
+  let html = orderSection + sharedSection;
   if (t === 'malay')   html += malaySection;
   else if (t === 'chinese') html += chineseSection;
   else html += malaySection + '<hr class="divider-trad">' + chineseSection;
