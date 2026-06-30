@@ -212,7 +212,18 @@
   .todo-delete-btn { background: none; border: none; color: var(--krem-gelap); cursor: pointer; font-size: 0.9rem; padding: 0 2px; flex-shrink: 0; line-height: 1; margin-top: 1px; transition: color 0.15s; }
   .todo-delete-btn:hover { color: var(--merah); }
 
-  @media (max-width: 500px) { .todo-panel { width: 100vw; } .todo-fab { bottom: 16px; right: 16px; } }
+  /* Persistent sidebar on desktop */
+  @media (min-width: 860px) {
+    .todo-fab { display: none; }
+    .todo-overlay { display: none !important; }
+    .todo-panel { transform: translateX(0); box-shadow: -4px 0 24px rgba(45,80,22,0.1); }
+    body { padding-right: 360px; }
+    .day-preview { max-width: 190px; }
+  }
+  @media (max-width: 859px) {
+    .todo-panel { width: 100vw; }
+    .todo-fab { bottom: 16px; right: 16px; }
+  }
 
   /* HOVER PREVIEW */
   .day-preview { position: fixed; z-index: 200; background: var(--putih); border: 1.5px solid var(--krem-gelap); border-radius: 8px; padding: 12px 14px; min-width: 170px; max-width: 210px; box-shadow: 0 8px 24px rgba(45,80,22,0.15); pointer-events: none; opacity: 0; transition: opacity 0.15s ease; font-size: 0.8rem; }
@@ -253,18 +264,18 @@
       </svg>
     </div>
     <h1>Sakina</h1>
-    <p class="subtitle">Program Berpantang 44 Hari</p>
-    <p class="tagline">The 4th Trimester · Postpartum Refugio · 坐月子</p>
+    <p class="subtitle">44-Day Postpartum Confinement · Program Berpantang 44 Hari · 四十四天坐月子</p>
+    <p class="tagline">The 4th Trimester · Alam Pemulihan · 产后第四孕期</p>
   </div>
 </div>
 
 <div class="intro">
-  <p>Selamat datang di program pemulihan pascapersalinan Anda. Empat puluh empat hari untuk beristirahat, dipulihkan, dan menjadi diri Anda yang baru.</p>
-  <p>Every day has its own intention — rest, nourishment, ritual, and care. Two traditions, one healing journey.</p>
+  <p>Welcome to your 44-day postpartum healing journey. Every day holds its own intention — deep rest, nourishment, ritual, and care. Two ancient traditions, woven into one path.</p>
+  <p>Selamat datang dalam perjalanan pemulihan Anda. · 欢迎踏上您的产后康复之旅。</p>
   <div class="intro-phases">
-    <span class="phase-chip">Days 1–7 · Pemulihan Awal</span>
-    <span class="phase-chip hijau-mid">Days 8–21 · Penguatan</span>
-    <span class="phase-chip tembaga">Days 22–44 · Kebangkitan</span>
+    <span class="phase-chip">Days 1–7 · Early Recovery · Pemulihan Awal · 初期恢复</span>
+    <span class="phase-chip hijau-mid">Days 8–21 · Strengthening · Penguatan · 增强体力</span>
+    <span class="phase-chip tembaga">Days 22–44 · Awakening · Kebangkitan · 恢复活力</span>
   </div>
 </div>
 
@@ -294,16 +305,16 @@
       <div class="modal-phase" id="modalPhase">Phase: Pemulihan Awal</div>
     </div>
     <div class="tradition-toggle">
-      <button class="trad-btn active-both" onclick="setTradition('both')">✦ Both</button>
-      <button class="trad-btn" onclick="setTradition('malay')">🌿 Malay · Indo</button>
-      <button class="trad-btn" onclick="setTradition('chinese')">🔴 Chinese 坐月子</button>
+      <button class="trad-btn active-both" onclick="setTradition('both')">✦ Both Traditions · 双传统</button>
+      <button class="trad-btn" onclick="setTradition('malay')">🌿 Malay · Pantang</button>
+      <button class="trad-btn" onclick="setTradition('chinese')">🔴 Chinese · 坐月子</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
     <div class="nav-btns">
       <button class="nav-btn" id="prevBtn" onclick="navigateDay(-1)">← Previous Day</button>
       <button class="nav-btn" id="nextBtn" onclick="navigateDay(1)">Next Day →</button>
     </div>
-    <button class="mark-done-btn" id="markDoneBtn" onclick="toggleDone()">Mark Day as Complete</button>
+    <button class="mark-done-btn" id="markDoneBtn" onclick="toggleDone()">Mark Day Complete · Tandai Selesai · 标记完成</button>
   </div>
 </div>
 
@@ -352,9 +363,9 @@
 </div>
 
 <div class="footer">
-  <div class="footer-name">Sakina</div>
-  <div>سكينة · Ketenangan · 安宁 · Tranquility</div>
-  <div style="margin-top:8px; opacity:0.6;">Bridging the Malay pantang & Chinese 坐月子 traditions — two paths, one healing.</div>
+  <div class="footer-name">Sakina · سكينة · 安宁</div>
+  <div>Tranquility · Ketenangan · 安宁 · سكينة</div>
+  <div style="margin-top:8px; opacity:0.6;">Two ancient traditions, one healing journey · Dua tradisi, satu perjalanan · 两种传统，一段康复之旅</div>
 </div>
 
 <script>
@@ -617,13 +628,13 @@ const intentions = [
 
 const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const weekLabels = [
-  { w:1, label:'Week 1 · Days 1–7',   phase:'Pemulihan Awal', days:[1,2,3,4,5,6,7] },
-  { w:2, label:'Week 2 · Days 8–14',  phase:'Penguatan',      days:[8,9,10,11,12,13,14] },
-  { w:3, label:'Week 3 · Days 15–21', phase:'Penguatan',      days:[15,16,17,18,19,20,21] },
-  { w:4, label:'Week 4 · Days 22–28', phase:'Kebangkitan',    days:[22,23,24,25,26,27,28] },
-  { w:5, label:'Week 5 · Days 29–35', phase:'Kebangkitan',    days:[29,30,31,32,33,34,35] },
-  { w:6, label:'Week 6 · Days 36–42', phase:'Kebangkitan',    days:[36,37,38,39,40,41,42] },
-  { w:7, label:'Final · Days 43–44',  phase:'Kebangkitan',    days:[43,44] },
+  { w:1, label:'Week 1 · Days 1–7',   phase:'Early Recovery · Pemulihan Awal · 初期恢复', days:[1,2,3,4,5,6,7] },
+  { w:2, label:'Week 2 · Days 8–14',  phase:'Strengthening · Penguatan · 增强体力',       days:[8,9,10,11,12,13,14] },
+  { w:3, label:'Week 3 · Days 15–21', phase:'Strengthening · Penguatan · 增强体力',       days:[15,16,17,18,19,20,21] },
+  { w:4, label:'Week 4 · Days 22–28', phase:'Awakening · Kebangkitan · 恢复活力',         days:[22,23,24,25,26,27,28] },
+  { w:5, label:'Week 5 · Days 29–35', phase:'Awakening · Kebangkitan · 恢复活力',         days:[29,30,31,32,33,34,35] },
+  { w:6, label:'Week 6 · Days 36–42', phase:'Awakening · Kebangkitan · 恢复活力',         days:[36,37,38,39,40,41,42] },
+  { w:7, label:'Final · Days 43–44',  phase:'Completion · Penyempurnaan · 圆满完成',      days:[43,44] },
 ];
 
 const orderingTasks = {
@@ -758,11 +769,11 @@ function renderModalBody(d) {
 
   const sharedSection = `
     <div class="modal-section">
-      <h3>Today's Intention · Niat Hari Ini</h3>
+      <h3>Today's Intention · Niat Hari Ini · 今日心意</h3>
       <p style="font-style:italic; color: var(--coklat-muda);">"${intention}"</p>
     </div>
     <div class="modal-section">
-      <h3>Doa · Prayer · 祈祷</h3>
+      <h3>Prayer · Doa · 祈祷</h3>
       <div class="doa-box">
         <div class="doa-arabic">${doa.arabic}</div>
         <div class="doa-roman">${doa.roman}</div>
@@ -771,28 +782,28 @@ function renderModalBody(d) {
     </div>`;
 
   const malaySection = `
-    <div class="trad-section-label"><div class="trad-dot malay"></div><span>Malay · Indonesian Pantang — Berpantang</span></div>
+    <div class="trad-section-label"><div class="trad-dot malay"></div><span>Malay & Indonesian · Pantang · 马来传统</span></div>
     <div class="modal-section">
-      <h3>Meals Today · Makanan Hari Ini</h3>
+      <h3>Meals Today · Makanan Hari Ini · 今日饮食</h3>
       <div class="meal-grid">
-        <div class="meal-card"><div class="meal-time">🌅 Pagi · Breakfast</div><div class="meal-name">${meal.pagi[0]}</div><div class="meal-desc">${meal.pagi[1]}</div></div>
-        <div class="meal-card"><div class="meal-time">☀️ Tengah Hari · Lunch</div><div class="meal-name">${meal.tengah[0]}</div><div class="meal-desc">${meal.tengah[1]}</div></div>
-        <div class="meal-card" style="grid-column:span 2"><div class="meal-time">🌙 Malam · Dinner</div><div class="meal-name">${meal.malam[0]}</div><div class="meal-desc">${meal.malam[1]}</div></div>
+        <div class="meal-card"><div class="meal-time">🌅 Breakfast · Pagi · 早餐</div><div class="meal-name">${meal.pagi[0]}</div><div class="meal-desc">${meal.pagi[1]}</div></div>
+        <div class="meal-card"><div class="meal-time">☀️ Lunch · Tengah Hari · 午餐</div><div class="meal-name">${meal.tengah[0]}</div><div class="meal-desc">${meal.tengah[1]}</div></div>
+        <div class="meal-card" style="grid-column:span 2"><div class="meal-time">🌙 Dinner · Malam · 晚餐</div><div class="meal-name">${meal.malam[0]}</div><div class="meal-desc">${meal.malam[1]}</div></div>
       </div>
     </div>
     <div class="modal-section">
-      <h3>Jamu & Rawatan · Herbal Treatment</h3>
+      <h3>Herbal Treatment · Jamu & Rawatan · 草药调理</h3>
       <div class="jamu-box">${jamu}</div>
     </div>
     <div class="modal-section">
-      <h3>Rituals · Amalan Harian</h3>
+      <h3>Daily Rituals · Amalan Harian · 每日仪式</h3>
       <ul class="ritual-list">${getRituals(d).map(r=>`<li><span class="icon">${r[0]}</span><span>${r[1]}</span></li>`).join('')}</ul>
     </div>`;
 
   const chineseSection = `
-    <div class="trad-section-label"><div class="trad-dot chinese"></div><span>Chinese Confinement · 坐月子 (zuò yuèzi)</span></div>
+    <div class="trad-section-label"><div class="trad-dot chinese"></div><span>Chinese Confinement · 坐月子 (zuò yuèzi) · Penjagaan Cina</span></div>
     <div class="modal-section">
-      <h3 class="chinese-h">Meals Today · 今日饮食</h3>
+      <h3 class="chinese-h">Meals Today · 今日饮食 · Makanan Hari Ini</h3>
       <div class="meal-grid">
         <div class="meal-card chinese-card"><div class="meal-time">🌅 Morning · 早餐</div><div class="meal-name">${cMeal.pagi[0]}</div><div class="meal-desc">${cMeal.pagi[1]}</div></div>
         <div class="meal-card chinese-card"><div class="meal-time">☀️ Lunch · 午餐</div><div class="meal-name">${cMeal.tengah[0]}</div><div class="meal-desc">${cMeal.tengah[1]}</div></div>
@@ -862,17 +873,17 @@ function getDayTitle(d) {
 
 function getRituals(d) {
   const base = [
-    ['🕌','Solat & doa pagi sebelum aktiviti apa pun (Morning prayer before anything)'],
-    ['💧','Minum segelas air suam dengan madu & halia (Warm water with honey & ginger)'],
-    ['🌿',"Jamu atau rawatan herbal hari ini (Today's herbal treatment — see schedule above)"],
-    ['🍽️','Tiga waktu makan penuh — jangan skip (Three full meals — do not skip)'],
-    ['😴','Tidur bila bayi tidur — ini preskripsi (Sleep when the baby sleeps — this is a prescription)'],
+    ['🕌','Morning prayer before anything else · Solat & doa pagi · 晨祷优先'],
+    ['💧','Warm water with honey & ginger · Air suam madu & halia · 温蜂蜜姜水'],
+    ['🌿',"Today's herbal treatment (see schedule above) · Rawatan herbal · 今日草药调理"],
+    ['🍽️','Three full meals — do not skip · Tiga waktu makan penuh · 三餐不可省'],
+    ['😴','Sleep when the baby sleeps — this is a prescription · Tidur bila bayi tidur · 婴儿睡你也睡'],
   ];
-  if (d % 7 === 0) base.push(['💆‍♀️','Urutan penuh hari ini — 60–90 min (Full massage today — book your therapist)']);
-  if (d <= 7)      base.push(['🚫','Tiada tetamu hari ini — pemulihan memerlukan ketenangan (No visitors — recovery needs quiet)']);
-  if (d > 7 && d <= 21) base.push(['🧘‍♀️','Nafas dalam 5 minit — tarik 4 kiraan, lepas 6 (Deep breathing 5 min — inhale 4, exhale 6)']);
-  if (d > 21)      base.push(['🚶‍♀️','Jalan kaki ringan 10–15 minit di dalam rumah (Light walk 10–15 min inside the home)']);
-  if (d === 44)    base.push(['🎉','Pantang selesai! 坐月子完了! Raikan bersama keluarga malam ini (Confinement complete — celebrate with family!)']);
+  if (d % 7 === 0) base.push(['💆‍♀️','Full massage today — book your therapist · Urutan penuh 60–90 min · 今日全身按摩']);
+  if (d <= 7)      base.push(['🚫','No visitors — recovery needs quiet · Tiada tetamu · 谢绝访客，静心恢复']);
+  if (d > 7 && d <= 21) base.push(['🧘‍♀️','Deep breathing 5 min — inhale 4, exhale 6 · Nafas dalam · 深呼吸5分钟']);
+  if (d > 21)      base.push(['🚶‍♀️','Light walk 10–15 min inside the home · Jalan kaki ringan · 室内轻走10–15分钟']);
+  if (d === 44)    base.push(['🎉','Confinement complete — celebrate with family! · Pantang selesai! · 坐月子圆满完成！']);
   return base;
 }
 
