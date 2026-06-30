@@ -155,6 +155,65 @@
 
   .week-section { margin-bottom: 8px; }
 
+  /* TODO SIDEBAR */
+  .todo-fab { position: fixed; bottom: 24px; right: 24px; z-index: 300; background: var(--tembaga); color: #fff; border: none; border-radius: 50px; padding: 12px 18px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; box-shadow: 0 4px 16px rgba(184,113,42,0.35); display: flex; align-items: center; gap: 7px; letter-spacing: 0.02em; transition: background 0.2s, transform 0.15s; }
+  .todo-fab:hover { background: var(--coklat); transform: translateY(-1px); }
+  .todo-fab .fab-badge { background: var(--merah); color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 0.65rem; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+  .todo-overlay { position: fixed; inset: 0; background: rgba(45,80,22,0.4); z-index: 400; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+  .todo-overlay.open { opacity: 1; pointer-events: all; }
+
+  .todo-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 360px; max-width: 100vw; background: var(--putih); z-index: 500; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.28s cubic-bezier(.4,0,.2,1); box-shadow: -8px 0 40px rgba(45,80,22,0.18); }
+  .todo-panel.open { transform: translateX(0); }
+
+  .todo-header { background: var(--hijau); padding: 22px 20px 18px; flex-shrink: 0; position: relative; }
+  .todo-header h2 { font-family: 'Playfair Display', serif; color: var(--krem); font-size: 1.2rem; margin-bottom: 2px; }
+  .todo-header p { font-size: 0.72rem; color: var(--hijau-muda); letter-spacing: 0.04em; }
+  .todo-close { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.15); border: none; color: var(--krem); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+  .todo-close:hover { background: rgba(255,255,255,0.25); }
+
+  .todo-add-form { padding: 14px 16px; border-bottom: 1px solid var(--krem-gelap); flex-shrink: 0; }
+  .todo-input { width: 100%; border: 1.5px solid var(--krem-gelap); border-radius: var(--radius); padding: 9px 11px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--text); background: var(--krem); margin-bottom: 7px; outline: none; transition: border-color 0.2s; }
+  .todo-input:focus { border-color: var(--tembaga); }
+  .todo-meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 7px; }
+  .todo-select { border: 1.5px solid var(--krem-gelap); border-radius: var(--radius); padding: 7px 9px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--text-soft); background: var(--krem); outline: none; width: 100%; cursor: pointer; }
+  .todo-date { border: 1.5px solid var(--krem-gelap); border-radius: var(--radius); padding: 7px 9px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--text-soft); background: var(--krem); outline: none; width: 100%; }
+  .todo-notes-input { width: 100%; border: 1.5px solid var(--krem-gelap); border-radius: var(--radius); padding: 7px 11px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--text); background: var(--krem); resize: none; height: 48px; margin-bottom: 7px; outline: none; }
+  .todo-notes-input:focus { border-color: var(--tembaga); }
+  .todo-add-btn { width: 100%; padding: 9px; background: var(--tembaga); color: #fff; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; letter-spacing: 0.02em; transition: background 0.2s; }
+  .todo-add-btn:hover { background: var(--coklat); }
+
+  .todo-filters { display: flex; gap: 5px; padding: 10px 16px 6px; flex-shrink: 0; flex-wrap: wrap; }
+  .todo-filter-btn { padding: 4px 11px; border: 1.5px solid var(--krem-gelap); background: none; color: var(--text-soft); font-family: 'DM Sans', sans-serif; font-size: 0.7rem; border-radius: 20px; cursor: pointer; transition: all 0.15s; }
+  .todo-filter-btn.active { background: var(--hijau); border-color: var(--hijau); color: var(--krem); }
+
+  .todo-list { flex: 1; overflow-y: auto; padding: 6px 16px 24px; }
+  .todo-empty { text-align: center; color: var(--text-soft); font-size: 0.82rem; margin-top: 40px; line-height: 1.8; opacity: 0.6; }
+
+  .todo-item { display: flex; gap: 10px; align-items: flex-start; padding: 11px 12px; border-radius: var(--radius); margin-bottom: 6px; border: 1.5px solid var(--krem-gelap); background: var(--krem); transition: opacity 0.2s; }
+  .todo-item.done { opacity: 0.45; }
+  .todo-item.done .todo-item-title { text-decoration: line-through; }
+  .todo-item.priority-high { border-left: 3px solid var(--merah); }
+  .todo-check-btn { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--krem-gelap); background: none; cursor: pointer; flex-shrink: 0; margin-top: 2px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: transparent; }
+  .todo-check-btn.checked { background: var(--hijau); border-color: var(--hijau); color: #fff; }
+  .todo-item-body { flex: 1; min-width: 0; }
+  .todo-item-title { font-size: 0.85rem; color: var(--text); font-weight: 500; margin-bottom: 3px; word-break: break-word; }
+  .todo-item-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .todo-tag { font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; padding: 2px 7px; border-radius: 10px; }
+  .todo-tag.cat-groceries { background: #F5EDD8; color: var(--tembaga); }
+  .todo-tag.cat-massage   { background: #E8EEFF; color: #5679C1; }
+  .todo-tag.cat-herbal    { background: #E8F4E0; color: var(--hijau); }
+  .todo-tag.cat-chinese   { background: var(--merah-bg); color: var(--merah); }
+  .todo-tag.cat-reminder  { background: #F5F0FF; color: #7B5EA7; }
+  .todo-tag.cat-other     { background: var(--krem-gelap); color: var(--text-soft); }
+  .todo-due { font-size: 0.68rem; color: var(--text-soft); }
+  .todo-due.overdue { color: var(--merah); font-weight: 600; }
+  .todo-notes-preview { font-size: 0.72rem; color: var(--text-soft); margin-top: 3px; line-height: 1.4; font-style: italic; }
+  .todo-delete-btn { background: none; border: none; color: var(--krem-gelap); cursor: pointer; font-size: 0.9rem; padding: 0 2px; flex-shrink: 0; line-height: 1; margin-top: 1px; transition: color 0.15s; }
+  .todo-delete-btn:hover { color: var(--merah); }
+
+  @media (max-width: 500px) { .todo-panel { width: 100vw; } .todo-fab { bottom: 16px; right: 16px; } }
+
   /* HOVER PREVIEW */
   .day-preview { position: fixed; z-index: 200; background: var(--putih); border: 1.5px solid var(--krem-gelap); border-radius: 8px; padding: 12px 14px; min-width: 170px; max-width: 210px; box-shadow: 0 8px 24px rgba(45,80,22,0.15); pointer-events: none; opacity: 0; transition: opacity 0.15s ease; font-size: 0.8rem; }
   .day-preview.visible { opacity: 1; }
@@ -249,6 +308,48 @@
 </div>
 
 <div id="dayPreview" class="day-preview"></div>
+
+<!-- TODO SIDEBAR -->
+<button class="todo-fab" onclick="openTodo()">
+  📋 My Tasks <span class="fab-badge" id="todoBadge" style="display:none">0</span>
+</button>
+<div class="todo-overlay" id="todoOverlay" onclick="closeTodo()"></div>
+<div class="todo-panel" id="todoPanel">
+  <div class="todo-header">
+    <button class="todo-close" onclick="closeTodo()">✕</button>
+    <h2>My Tasks</h2>
+    <p>Groceries · Bookings · Reminders · Notes</p>
+  </div>
+  <div class="todo-add-form">
+    <input class="todo-input" id="todoTitle" placeholder="Add a task…" onkeydown="if(event.key==='Enter')addTodo()">
+    <div class="todo-meta-row">
+      <select class="todo-select" id="todoCat">
+        <option value="other">📌 Other</option>
+        <option value="groceries">🛒 Groceries</option>
+        <option value="herbal">🌿 Herbal / Jamu</option>
+        <option value="massage">💆 Massage / Urut</option>
+        <option value="chinese">🔴 Chinese 坐月子</option>
+        <option value="reminder">🔔 Reminder</option>
+      </select>
+      <select class="todo-select" id="todoPriority">
+        <option value="normal">Normal</option>
+        <option value="high">⚠️ High priority</option>
+      </select>
+    </div>
+    <div class="todo-meta-row">
+      <input class="todo-date" id="todoDue" type="date" title="Due date">
+      <input class="todo-input" id="todoDay" type="number" min="1" max="44" placeholder="Day # (optional)" style="margin:0">
+    </div>
+    <textarea class="todo-notes-input" id="todoNotes" placeholder="Notes (optional)…"></textarea>
+    <button class="todo-add-btn" onclick="addTodo()">+ Add Task</button>
+  </div>
+  <div class="todo-filters">
+    <button class="todo-filter-btn active" onclick="setTodoFilter('all',this)">All</button>
+    <button class="todo-filter-btn" onclick="setTodoFilter('active',this)">Active</button>
+    <button class="todo-filter-btn" onclick="setTodoFilter('done',this)">Done</button>
+  </div>
+  <div class="todo-list" id="todoList"></div>
+</div>
 
 <div class="footer">
   <div class="footer-name">Sakina</div>
@@ -793,7 +894,111 @@ function scrollToWeek(w, smooth = true) {
   if (el) el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
 }
 
+// ── TODO ──────────────────────────────────────────
+let todos = JSON.parse(localStorage.getItem('sakinaTodos') || '[]');
+let todoFilter = 'all';
+
+function saveTodos() { localStorage.setItem('sakinaTodos', JSON.stringify(todos)); }
+
+function addTodo() {
+  const title = document.getElementById('todoTitle').value.trim();
+  if (!title) { document.getElementById('todoTitle').focus(); return; }
+  todos.unshift({
+    id: crypto.randomUUID(),
+    title,
+    category: document.getElementById('todoCat').value,
+    priority: document.getElementById('todoPriority').value,
+    dueDate: document.getElementById('todoDue').value,
+    day: document.getElementById('todoDay').value ? parseInt(document.getElementById('todoDay').value) : null,
+    notes: document.getElementById('todoNotes').value.trim(),
+    done: false,
+    createdAt: new Date().toISOString(),
+  });
+  saveTodos();
+  document.getElementById('todoTitle').value = '';
+  document.getElementById('todoNotes').value = '';
+  document.getElementById('todoDue').value = '';
+  document.getElementById('todoDay').value = '';
+  document.getElementById('todoCat').value = 'other';
+  document.getElementById('todoPriority').value = 'normal';
+  renderTodos();
+}
+
+function toggleTodo(id) {
+  const t = todos.find(t => t.id === id);
+  if (t) { t.done = !t.done; saveTodos(); renderTodos(); }
+}
+
+function deleteTodo(id) {
+  todos = todos.filter(t => t.id !== id);
+  saveTodos();
+  renderTodos();
+}
+
+function setTodoFilter(f, btn) {
+  todoFilter = f;
+  document.querySelectorAll('.todo-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTodos();
+}
+
+function renderTodos() {
+  const list = document.getElementById('todoList');
+  const today = new Date().toISOString().slice(0,10);
+  const filtered = todos.filter(t =>
+    todoFilter === 'all' ? true : todoFilter === 'done' ? t.done : !t.done
+  );
+
+  // badge: active count
+  const active = todos.filter(t => !t.done).length;
+  const badge = document.getElementById('todoBadge');
+  badge.style.display = active > 0 ? 'flex' : 'none';
+  badge.textContent = active;
+
+  if (!filtered.length) {
+    list.innerHTML = `<div class="todo-empty">
+      ${todoFilter === 'done' ? 'No completed tasks yet.' : 'No tasks yet.<br>Add your first above ↑'}
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(t => {
+    const isOverdue = t.dueDate && t.dueDate < today && !t.done;
+    const dueLabel = t.dueDate ? `<span class="todo-due${isOverdue?' overdue':''}">
+      ${isOverdue ? '⚠️ ' : '📅 '}${formatDate(t.dueDate)}
+    </span>` : '';
+    const dayLabel = t.day ? `<span class="todo-due">Day ${t.day}</span>` : '';
+    const notes = t.notes ? `<div class="todo-notes-preview">${escHtml(t.notes)}</div>` : '';
+    return `<div class="todo-item${t.done?' done':''}${t.priority==='high'?' priority-high':''}">
+      <button class="todo-check-btn${t.done?' checked':''}" onclick="toggleTodo('${t.id}')" title="Toggle done">✓</button>
+      <div class="todo-item-body">
+        <div class="todo-item-title">${escHtml(t.title)}</div>
+        <div class="todo-item-meta">
+          <span class="todo-tag cat-${t.category}">${catLabel(t.category)}</span>
+          ${t.priority==='high'?'<span class="todo-tag" style="background:#FFF0F0;color:var(--merah)">High</span>':''}
+          ${dueLabel}${dayLabel}
+        </div>
+        ${notes}
+      </div>
+      <button class="todo-delete-btn" onclick="deleteTodo('${t.id}')" title="Delete">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function formatDate(d) {
+  const [y,m,day] = d.split('-');
+  return `${day}/${m}/${y.slice(2)}`;
+}
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function catLabel(c) {
+  return {groceries:'🛒 Groceries',herbal:'🌿 Herbal',massage:'💆 Massage',chinese:'🔴 坐月子',reminder:'🔔 Reminder',other:'📌 Other'}[c]||c;
+}
+
+function openTodo()  { document.getElementById('todoPanel').classList.add('open'); document.getElementById('todoOverlay').classList.add('open'); }
+function closeTodo() { document.getElementById('todoPanel').classList.remove('open'); document.getElementById('todoOverlay').classList.remove('open'); }
+
 renderGrid();
+renderTodos();
 </script>
 </body>
 </html>
