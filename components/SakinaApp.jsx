@@ -11,6 +11,7 @@ import { malayRationale, chineseRationale } from '@/data/rationale';
 import { orderingTasks } from '@/data/orderingTasks';
 import { weekLabels, dayNames } from '@/data/weekLabels';
 import TodoSidebar from './TodoSidebar';
+import BirthPlanMode from './BirthPlanMode';
 
 const phases = [
   { days: [1,7],   name: 'Pemulihan Awal',  tag: 'Early Recovery' },
@@ -182,6 +183,7 @@ function renderModalBodyHTML(d, tradition) {
 }
 
 export default function SakinaApp() {
+  const [appMode, setAppMode] = useState('recover'); // 'recover' | 'prepare'
   const [doneDays, setDoneDays] = useState([]);
   const [currentDay, setCurrentDay] = useState(null);
   const [currentTradition, setCurrentTradition] = useState('both');
@@ -289,6 +291,26 @@ export default function SakinaApp() {
         </div>
       </div>
 
+      {/* Mode toggle */}
+      <div className="mode-toggle-wrap">
+        <button
+          className={`mode-btn${appMode === 'prepare' ? ' mode-btn-active-prepare' : ''}`}
+          onClick={() => setAppMode('prepare')}
+        >
+          🌱 Prepare · Sedia · 备产
+        </button>
+        <button
+          className={`mode-btn${appMode === 'recover' ? ' mode-btn-active-recover' : ''}`}
+          onClick={() => setAppMode('recover')}
+        >
+          🌿 Recover · Pulih · 康复
+        </button>
+      </div>
+
+      {appMode === 'prepare' ? (
+        <BirthPlanMode />
+      ) : (
+        <>
       <div className="intro">
         <p>Welcome to your 44-day postpartum healing journey. Every day holds its own intention — deep rest, nourishment, ritual, and care. Two ancient traditions, woven into one path.</p>
         <p>Selamat datang dalam perjalanan pemulihan Anda. · 欢迎踏上您的产后康复之旅。</p>
@@ -416,6 +438,8 @@ export default function SakinaApp() {
         <div>Tranquility · Ketenangan · 安宁 · سكينة</div>
         <div style={{ marginTop: '8px', opacity: 0.6 }}>Two ancient traditions, one healing journey · Dua tradisi, satu perjalanan · 两种传统，一段康复之旅</div>
       </div>
+        </>
+      )}
     </>
   );
 }

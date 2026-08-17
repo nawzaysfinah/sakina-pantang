@@ -258,3 +258,40 @@
   .order-card .order-task { font-size: 0.86rem; color: var(--text); font-weight: 500; margin-bottom: 3px; }
   .order-card .order-lead { font-size: 0.72rem; color: var(--merah); font-weight: 600; margin-bottom: 6px; }
   .order-card .order-items { font-size: 0.73rem; color: var(--text-soft); line-height: 1.6; }
+
+  /* ── MODE TOGGLE ─────────────────────────────── */
+  .mode-toggle-wrap { display: flex; gap: 8px; justify-content: center; padding: 24px 24px 0; }
+  .mode-btn { padding: 10px 24px; border: 2px solid var(--krem-gelap); background: var(--putih); color: var(--text-soft); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; border-radius: 24px; transition: all 0.2s; letter-spacing: 0.02em; }
+  .mode-btn:hover { border-color: var(--hijau-mid); color: var(--hijau); }
+  .mode-btn-active-recover { background: var(--hijau); border-color: var(--hijau); color: var(--krem) !important; }
+  .mode-btn-active-prepare { background: #185FA5; border-color: #185FA5; color: #fff !important; }
+
+  /* ── BIRTH PLAN ───────────────────────────────── */
+  .bp-container { max-width: 680px; margin: 0 auto; padding: 24px 24px 60px; }
+  .bp-intro { margin-bottom: 24px; }
+  .bp-intro p { font-size: 0.9rem; color: var(--text-soft); line-height: 1.7; margin-bottom: 12px; }
+  .bp-progress-bar-wrap { display: flex; align-items: center; gap: 12px; }
+  .bp-progress-bar-track { flex: 1; height: 6px; background: var(--krem-gelap); border-radius: 3px; overflow: hidden; }
+  .bp-progress-bar-fill { height: 100%; background: #185FA5; border-radius: 3px; transition: width 0.4s ease; }
+  .bp-progress-label { font-size: 0.78rem; color: var(--text-soft); white-space: nowrap; }
+
+  .bp-week-card { background: var(--putih); border: 1px solid var(--krem-gelap); border-radius: 12px; overflow: hidden; margin-bottom: 16px; transition: border-color 0.2s; }
+  .bp-week-card.bp-week-complete { border-color: #185FA5; }
+  .bp-week-head { display: flex; align-items: center; gap: 10px; padding: 14px 18px 12px; background: #F7F6F2; border-bottom: 1px solid var(--krem-gelap); flex-wrap: wrap; }
+  .bp-week-left { display: flex; align-items: center; gap: 8px; }
+  .bp-week-num { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-soft); min-width: 56px; }
+  .bp-week-tick { font-size: 12px; color: #185FA5; font-weight: 700; }
+  .bp-week-title { font-size: 13px; font-weight: 500; color: var(--coklat); flex: 1; min-width: 160px; }
+  .bp-badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+
+  .bp-week-body { padding: 14px 18px 16px; display: flex; flex-direction: column; gap: 14px; }
+  .bp-section { display: flex; flex-direction: column; gap: 8px; }
+  .bp-section-label { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-soft); }
+  .bp-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .bp-dot-wknd { background: #185FA5; }
+  .bp-dot-daily { background: #3B6D11; }
+
+  .bp-task { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; padding: 2px 0; }
+  .bp-checkbox { margin-top: 3px; width: 15px; height: 15px; flex-shrink: 0; accent-color: #185FA5; cursor: pointer; }
+  .bp-task-text { font-size: 13px; line-height: 1.55; color: var(--text); transition: color 0.15s; }
+  .bp-task-done .bp-task-text { color: var(--text-soft); text-decoration: line-through; }
