@@ -10,8 +10,8 @@ import { chinesePractices } from '@/data/chinesePractices';
 import { malayRationale, chineseRationale } from '@/data/rationale';
 import { orderingTasks } from '@/data/orderingTasks';
 import { weekLabels, dayNames } from '@/data/weekLabels';
-import TodoSidebar from './TodoSidebar';
 import BirthPlanMode from './BirthPlanMode';
+import TumbuhMode from './TumbuhMode';
 
 const phases = [
   { days: [1,7],   name: 'Pemulihan Awal',  tag: 'Early Recovery' },
@@ -175,20 +175,19 @@ function renderModalBodyHTML(d, tradition) {
     </div>` : '';
 
   let html = orderSection + sharedSection;
-  if (t === 'malay')   html += malaySection;
+  if (t === 'malay')        html += malaySection;
   else if (t === 'chinese') html += chineseSection;
-  else html += malaySection + '<hr class="divider-trad">' + chineseSection;
+  else                      html += malaySection + '<hr class="divider-trad">' + chineseSection;
 
   return html;
 }
 
 export default function SakinaApp() {
-  const [appMode, setAppMode] = useState('recover'); // 'recover' | 'prepare'
+  const [appMode, setAppMode] = useState('recover'); // 'recover' | 'prepare' | 'tumbuh'
   const [doneDays, setDoneDays] = useState([]);
   const [currentDay, setCurrentDay] = useState(null);
   const [currentTradition, setCurrentTradition] = useState('both');
-  const [hoverInfo, setHoverInfo] = useState(null); // { day, x, y }
-  const [isTodoPanelOpen, setIsTodoPanelOpen] = useState(false);
+  const [hoverInfo, setHoverInfo] = useState(null);
   const modalBodyRef = useRef(null);
 
   useEffect(() => {
@@ -217,12 +216,9 @@ export default function SakinaApp() {
   };
 
   const toggleDone = () => {
-    let newDays;
-    if (doneDays.includes(currentDay)) {
-      newDays = doneDays.filter(d => d !== currentDay);
-    } else {
-      newDays = [...doneDays, currentDay];
-    }
+    const newDays = doneDays.includes(currentDay)
+      ? doneDays.filter(d => d !== currentDay)
+      : [...doneDays, currentDay];
     saveDoneDays(newDays);
   };
 
@@ -238,30 +234,24 @@ export default function SakinaApp() {
   };
 
   const handleMouseMove = (e) => {
-    if (hoverInfo) {
-      setHoverInfo(prev => prev ? { ...prev, x: e.clientX, y: e.clientY } : null);
-    }
+    if (hoverInfo) setHoverInfo(prev => prev ? { ...prev, x: e.clientX, y: e.clientY } : null);
   };
 
-  const handleMouseLeave = () => {
-    setHoverInfo(null);
-  };
+  const handleMouseLeave = () => setHoverInfo(null);
 
-  const getPreviewPos = (x, y, elH = 100) => {
+  const getPreviewPos = (x, y) => {
     const gap = 12;
     let px = x + gap;
     let py = y + gap;
     if (px + 220 > window.innerWidth)  px = x - 220 - gap;
-    if (py + elH > window.innerHeight) py = y - elH - gap;
+    if (py + 120 > window.innerHeight) py = y - 120 - gap;
     return { left: px, top: py };
   };
 
   const pct = Math.round((doneDays.length / 44) * 100);
-
   const phase = currentDay ? getPhase(currentDay) : null;
   const isDone = currentDay ? doneDays.includes(currentDay) : false;
 
-  // Update modal body whenever day or tradition changes
   useEffect(() => {
     if (currentDay && modalBodyRef.current) {
       modalBodyRef.current.innerHTML = renderModalBodyHTML(currentDay, currentTradition);
@@ -286,8 +276,8 @@ export default function SakinaApp() {
             </svg>
           </div>
           <h1>Sakina</h1>
-          <p className="subtitle">44-Day Postpartum Confinement · Program Berpantang 44 Hari · 四十四天坐月子</p>
-          <p className="tagline">The 4th Trimester · Alam Pemulihan · 产后第四孕期</p>
+          <p className="subtitle">Postpartum · Pregnancy · Baby Development · 产后 · 孕期 · 宝宝成长</p>
+          <p className="tagline">For every stage of the journey · Untuk setiap peringkat · 陪伴每个阶段</p>
         </div>
       </div>
 
@@ -305,139 +295,133 @@ export default function SakinaApp() {
         >
           🌿 Recover · Pulih · 康复
         </button>
-      </div>
-
-      {appMode === 'prepare' ? (
-        <BirthPlanMode />
-      ) : (
-        <>
-      <div className="intro">
-        <p>Welcome to your 44-day postpartum healing journey. Every day holds its own intention — deep rest, nourishment, ritual, and care. Two ancient traditions, woven into one path.</p>
-        <p>Selamat datang dalam perjalanan pemulihan Anda. · 欢迎踏上您的产后康复之旅。</p>
-        <div className="intro-phases">
-          <span className="phase-chip">Days 1–7 · Early Recovery · Pemulihan Awal · 初期恢复</span>
-          <span className="phase-chip hijau-mid">Days 8–21 · Strengthening · Penguatan · 增强体力</span>
-          <span className="phase-chip tembaga">Days 22–44 · Awakening · Kebangkitan · 恢复活力</span>
-        </div>
-      </div>
-
-      <div className="progress-section">
-        <div className="progress-bar-wrap">
-          <div className="progress-bar" style={{ width: `${pct}%` }}></div>
-        </div>
-        <div className="progress-label">{doneDays.length} of 44 days complete</div>
-      </div>
-
-      <div className="week-nav">
-        {[1,2,3,4,5,6,7].map(w => (
-          <button
-            key={w}
-            className="week-btn"
-            onClick={() => scrollToWeek(w)}
-          >
-            {w === 7 ? 'Day 43–44' : `Week ${w}`}
-          </button>
-        ))}
-      </div>
-
-      <div className="days-section">
-        {weekLabels.map(wk => (
-          <div className="week-section" id={`week-${wk.w}`} key={wk.w}>
-            <div className="week-label">
-              {wk.label} <span className="phase-tag">{wk.phase}</span>
-            </div>
-            <div className="day-grid">
-              {wk.days.map(d => {
-                const done = doneDays.includes(d);
-                const dow = dayNames[d % 7];
-                return (
-                  <div
-                    key={d}
-                    className={`day-card${done ? ' done' : ''}`}
-                    onClick={() => openDay(d)}
-                    onMouseEnter={e => handleMouseEnter(d, e)}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseMove={handleMouseMove}
-                  >
-                    <div className="day-num">{d}</div>
-                    <div className="day-name">{dow}</div>
-                    <div className="day-check">✓</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Hover Preview */}
-      {hoverInfo && hoverMeal && (
-        <div
-          className="day-preview visible"
-          style={{ left: previewPos.left, top: previewPos.top }}
+        <button
+          className={`mode-btn${appMode === 'tumbuh' ? ' mode-btn-active-tumbuh' : ''}`}
+          onClick={() => setAppMode('tumbuh')}
         >
-          <div className="day-preview-day">Day {hoverInfo.day} · {getDayTitle(hoverInfo.day).split('·')[0].trim()}</div>
-          <div className="day-preview-meal">🌅 {hoverMeal.pagi[0].split('·')[0].trim()}</div>
-          <div className="day-preview-meal">☀️ {hoverMeal.tengah[0].split('·')[0].trim()}</div>
-          <div className="day-preview-meal">🌙 {hoverMeal.malam[0].split('·')[0].trim()}</div>
-          {hoverTasks && (
-            <div className="day-preview-order">📦 {hoverTasks.length} order/booking task{hoverTasks.length > 1 ? 's' : ''} today</div>
+          🌸 Tumbuh · 成长
+        </button>
+      </div>
+
+      {appMode === 'prepare' && <BirthPlanMode />}
+
+      {appMode === 'tumbuh' && <TumbuhMode />}
+
+      {appMode === 'recover' && (
+        <>
+          <div className="intro">
+            <p>Welcome to your 44-day postpartum healing journey. Every day holds its own intention — deep rest, nourishment, ritual, and care. Two ancient traditions, woven into one path.</p>
+            <p>Selamat datang dalam perjalanan pemulihan Anda. · 欢迎踏上您的产后康复之旅。</p>
+            <div className="intro-phases">
+              <span className="phase-chip">Days 1–7 · Early Recovery · Pemulihan Awal · 初期恢复</span>
+              <span className="phase-chip hijau-mid">Days 8–21 · Strengthening · Penguatan · 增强体力</span>
+              <span className="phase-chip tembaga">Days 22–44 · Awakening · Kebangkitan · 恢复活力</span>
+            </div>
+          </div>
+
+          <div className="progress-section">
+            <div className="progress-bar-wrap">
+              <div className="progress-bar" style={{ width: `${pct}%` }}></div>
+            </div>
+            <div className="progress-label">{doneDays.length} of 44 days complete</div>
+          </div>
+
+          <div className="week-nav">
+            {[1,2,3,4,5,6,7].map(w => (
+              <button key={w} className="week-btn" onClick={() => scrollToWeek(w)}>
+                {w === 7 ? 'Day 43–44' : `Week ${w}`}
+              </button>
+            ))}
+          </div>
+
+          <div className="days-section">
+            {weekLabels.map(wk => (
+              <div className="week-section" id={`week-${wk.w}`} key={wk.w}>
+                <div className="week-label">
+                  {wk.label} <span className="phase-tag">{wk.phase}</span>
+                </div>
+                <div className="day-grid">
+                  {wk.days.map(d => {
+                    const dDone = doneDays.includes(d);
+                    const dow = dayNames[d % 7];
+                    return (
+                      <div
+                        key={d}
+                        className={`day-card${dDone ? ' done' : ''}`}
+                        onClick={() => openDay(d)}
+                        onMouseEnter={e => handleMouseEnter(d, e)}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseMove={handleMouseMove}
+                      >
+                        <div className="day-num">{d}</div>
+                        <div className="day-name">{dow}</div>
+                        <div className="day-check">✓</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Hover Preview */}
+          {hoverInfo && hoverMeal && (
+            <div className="day-preview visible" style={{ left: previewPos.left, top: previewPos.top }}>
+              <div className="day-preview-day">Day {hoverInfo.day} · {getDayTitle(hoverInfo.day).split('·')[0].trim()}</div>
+              <div className="day-preview-meal">🌅 {hoverMeal.pagi[0].split('·')[0].trim()}</div>
+              <div className="day-preview-meal">☀️ {hoverMeal.tengah[0].split('·')[0].trim()}</div>
+              <div className="day-preview-meal">🌙 {hoverMeal.malam[0].split('·')[0].trim()}</div>
+              {hoverTasks && (
+                <div className="day-preview-order">📦 {hoverTasks.length} order/booking task{hoverTasks.length > 1 ? 's' : ''} today</div>
+              )}
+            </div>
           )}
-        </div>
-      )}
 
-      {/* Modal */}
-      <div
-        className={`modal-overlay${currentDay !== null ? ' open' : ''}`}
-        onClick={e => { if (e.target === e.currentTarget) closeModal(); }}
-      >
-        <div className="modal">
-          <div className="modal-header">
-            <button className="modal-close" onClick={closeModal}>✕</button>
-            <div className="modal-day-num">Day {currentDay} of 44</div>
-            <div className="modal-title">{currentDay ? getDayTitle(currentDay) : ''}</div>
-            <div className="modal-phase">{phase ? `Phase: ${phase.name} · ${phase.tag}` : ''}</div>
-          </div>
-          <div className="tradition-toggle">
-            <button
-              className={`trad-btn${currentTradition === 'both' ? ' active-both' : ''}`}
-              onClick={() => setCurrentTradition('both')}
-            >✦ Both Traditions · 双传统</button>
-            <button
-              className={`trad-btn${currentTradition === 'malay' ? ' active-malay' : ''}`}
-              onClick={() => setCurrentTradition('malay')}
-            >🌿 Malay · Pantang</button>
-            <button
-              className={`trad-btn${currentTradition === 'chinese' ? ' active-chinese' : ''}`}
-              onClick={() => setCurrentTradition('chinese')}
-            >🔴 Chinese · 坐月子</button>
-          </div>
-          <div className="modal-body" ref={modalBodyRef}></div>
-          <div className="nav-btns">
-            <button className="nav-btn" disabled={currentDay <= 1} onClick={() => navigateDay(-1)}>← Previous Day</button>
-            <button className="nav-btn" disabled={currentDay >= 44} onClick={() => navigateDay(1)}>Next Day →</button>
-          </div>
-          <button
-            className={`mark-done-btn${isDone ? ' done-state' : ''}`}
-            onClick={toggleDone}
+          {/* Modal */}
+          <div
+            className={`modal-overlay${currentDay !== null ? ' open' : ''}`}
+            onClick={e => { if (e.target === e.currentTarget) closeModal(); }}
           >
-            {isDone ? '✓ Day Complete' : 'Mark Day Complete · Tandai Selesai · 标记完成'}
-          </button>
-        </div>
-      </div>
+            <div className="modal">
+              <div className="modal-header">
+                <button className="modal-close" onClick={closeModal}>✕</button>
+                <div className="modal-day-num">Day {currentDay} of 44</div>
+                <div className="modal-title">{currentDay ? getDayTitle(currentDay) : ''}</div>
+                <div className="modal-phase">{phase ? `Phase: ${phase.name} · ${phase.tag}` : ''}</div>
+              </div>
+              <div className="tradition-toggle">
+                <button
+                  className={`trad-btn${currentTradition === 'both' ? ' active-both' : ''}`}
+                  onClick={() => setCurrentTradition('both')}
+                >✦ Both Traditions · 双传统</button>
+                <button
+                  className={`trad-btn${currentTradition === 'malay' ? ' active-malay' : ''}`}
+                  onClick={() => setCurrentTradition('malay')}
+                >🌿 Malay · Pantang</button>
+                <button
+                  className={`trad-btn${currentTradition === 'chinese' ? ' active-chinese' : ''}`}
+                  onClick={() => setCurrentTradition('chinese')}
+                >🔴 Chinese · 坐月子</button>
+              </div>
+              <div className="modal-body" ref={modalBodyRef}></div>
+              <div className="nav-btns">
+                <button className="nav-btn" disabled={currentDay <= 1} onClick={() => navigateDay(-1)}>← Previous Day</button>
+                <button className="nav-btn" disabled={currentDay >= 44} onClick={() => navigateDay(1)}>Next Day →</button>
+              </div>
+              <button
+                className={`mark-done-btn${isDone ? ' done-state' : ''}`}
+                onClick={toggleDone}
+              >
+                {isDone ? '✓ Day Complete' : 'Mark Day Complete · Tandai Selesai · 标记完成'}
+              </button>
+            </div>
+          </div>
 
-      {/* Todo FAB (mobile) */}
-      <button className="todo-fab" onClick={() => setIsTodoPanelOpen(true)}>
-        📋 My Tasks
-      </button>
-
-      <TodoSidebar isOpen={isTodoPanelOpen} onClose={() => setIsTodoPanelOpen(false)} />
-
-      <div className="footer">
-        <div className="footer-name">Sakina · سكينة · 安宁</div>
-        <div>Tranquility · Ketenangan · 安宁 · سكينة</div>
-        <div style={{ marginTop: '8px', opacity: 0.6 }}>Two ancient traditions, one healing journey · Dua tradisi, satu perjalanan · 两种传统，一段康复之旅</div>
-      </div>
+          <div className="footer">
+            <div className="footer-name">Sakina · سكينة · 安宁</div>
+            <div>Tranquility · Ketenangan · 安宁 · سكينة</div>
+            <div style={{ marginTop: '8px', opacity: 0.6 }}>Two ancient traditions, one healing journey · Dua tradisi, satu perjalanan · 两种传统，一段康复之旅</div>
+          </div>
         </>
       )}
     </>
