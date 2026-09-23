@@ -103,6 +103,13 @@ function renderModalBodyHTML(d, tradition) {
       <h3>Herbal Treatment · Jamu & Rawatan · 草药调理</h3>
       <div class="jamu-box">${jamu}</div>
     </div>
+    ${mRat.safetyNote ? `
+    <div class="modal-section">
+      <div class="safety-note${d >= 22 ? ' reassure' : ''}">
+        <strong>${d >= 22 ? '✅' : '⚠️'} Breastfeeding Note · Nota Penyusuan · 哺乳提醒</strong>
+        ${mRat.safetyNote}
+      </div>
+    </div>` : ''}
     <div class="modal-section">
       <h3>Daily Rituals · Amalan Harian · 每日仪式</h3>
       <ul class="ritual-list">${getRituals(d).map(r=>`<li><span class="icon">${r[0]}</span><span>${r[1]}</span></li>`).join('')}</ul>
@@ -137,6 +144,13 @@ function renderModalBodyHTML(d, tradition) {
       <h3 class="chinese-h">${chPhase.title}</h3>
       <div class="chinese-box"><strong>今日草药 · Herbal Drink:</strong> ${chPhase.herbal}</div>
     </div>
+    ${chPhase.teaNote ? `
+    <div class="modal-section">
+      <div class="safety-note reassure">
+        <strong>🍵 Breastfeeding Note · 哺乳提醒 · Nota Penyusuan</strong>
+        ${chPhase.teaNote}
+      </div>
+    </div>` : ''}
     <div class="modal-section">
       <h3 class="chinese-h">Practices · 坐月子规矩</h3>
       <ul class="ritual-list">${chPhase.practices.map(r=>`<li><span class="icon">${r[0]}</span><span>${r[1]}</span></li>`).join('')}</ul>

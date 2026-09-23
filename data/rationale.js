@@ -13,6 +13,7 @@ export const malayRationale = {
       'Tapel (herbal paste on abdomen) combines heat with transdermal absorption of tightening herbs; the warmth itself aids uterine contraction.',
       'Urutan (massage) accelerates lymphatic drainage, breaks down adhesions from the birth, and — through the release of oxytocin from touch — directly supports breastfeeding.',
     ],
+    safetyNote: "If you're breastfeeding, keep today's jamu minum light and diluted rather than concentrated — a newborn's liver is still learning to clear bilirubin, and strong herbal actives can pass through breastmilk in small amounts. Many families wait until baby's jaundice has fully cleared (often by Week 3) before moving to stronger formulations. External treatments — tapel, param, pilis, mandi herbal, and urutan — are absorbed far less than anything you drink, so they're generally considered lower-risk throughout. If baby seems unusually fussy, or you notice stool or skin changes, pause and check with your pediatrician.",
     confinement: 'The 44-day period maps to the medical concept of the puerperium — the 6 weeks during which the uterus returns to pre-pregnancy size, cervical tissue closes, and estrogen/progesterone levels stabilise. Malay tradition arrived at this number through centuries of observation, not written science.',
   },
   2: {
@@ -29,6 +30,7 @@ export const malayRationale = {
       'Pilis (forehead herbal paste) targets the trigeminal nerve — cooling or warming the brow affects blood flow to the head and is used to treat postnatal headaches from blood pressure shifts.',
       'Mandi herbal (herbal bath) begins because the skin is ready — the body\'s largest organ, now healing from sweat and stretch, benefits from antimicrobial and astringent botanicals.',
     ],
+    safetyNote: "Jaundice usually clears within the first two to three weeks, but if baby was jaundiced or is still being monitored, keep jamu minum mild a little longer and check with your pediatrician before moving to stronger formulations like galian singset. Topical treatments (tapel, param, pilis, mandi herbal, urutan) remain lower-risk throughout this window. Most mothers can safely move to fuller-strength jamu once baby has been cleared.",
     confinement: 'The urutan schedule intensifies in this phase because myofascial tissue — fascia, ligaments, pelvic floor — becomes "settable" around Days 10–21. Malay practitioners say the body is "lunak" (soft and receptive) — the window to reshape and support healing structure.',
   },
   3: {
@@ -43,6 +45,7 @@ export const malayRationale = {
       'The final mandi bunga setaman (flower bath) is ritual and real: volatile oils from jasmine, rose, and ylang-ylang cross the skin-blood barrier and have documented anxiolytic (anti-anxiety) effects.',
       'Urutan frequency peaks then tapers — the final massages consolidate fascial alignment and signal to the body\'s proprioceptive system that structural recovery is complete.',
     ],
+    safetyNote: "By this phase, most babies have long cleared any newborn jaundice, so fuller-strength jamu — including galian singset and the richer tonics — is generally fine once your pediatrician has given the all-clear. Keep listening to baby: any new fussiness, stool changes, or skin changes are still worth a quick check-in.",
     confinement: 'Day 44 is not arbitrary. It is the end of the "fourth trimester" — the developmental window when the infant\'s nervous system is most dependent on close maternal contact, and when the mother\'s body has completed its primary repair cycle. Many cultures independently converged on 40–44 days: the Quranic arba\'een, the Chinese full month, the ancient Greek tessarakoste.',
   },
 };
@@ -74,7 +77,7 @@ export const chineseRationale = {
       'Papaya + fish tail soup (青木瓜鱼尾汤) is the classic galactagogue: green papaya contains papain and phytoestrogens that stimulate prolactin; fish tail provides omega-3 DHA essential for breastmilk composition.',
     ],
     herbs: [
-      '四物汤 (Four Herb Decoction) is the most-studied formula in TCM pharmacology: Dang Gui (당귀) for blood, Chuan Xiong (川芎) for blood circulation, Shu Di (熟地) for blood nourishment, Bai Shao (白芍) for blood astringency. Together they address all four aspects of postnatal blood deficiency.',
+      '四物汤 (Four Herb Decoction) is the most-studied formula in TCM pharmacology: Dang Gui (当归) for blood, Chuan Xiong (川芎) for blood circulation, Shu Di (熟地) for blood nourishment, Bai Shao (白芍) for blood astringency. Together they address all four aspects of postnatal blood deficiency.',
       'Astragalus (黄芪) in this phase activates T-cell and NK-cell production — rebuilding immune function suppressed during pregnancy (the body deliberately lowers immunity to not reject the foetus).',
       'Burdock root (牛蒡) is a prebiotic inulin source that restores gut microbiome diversity — disrupted by birth and antibiotics — which directly affects breastmilk microbiome quality.',
     ],

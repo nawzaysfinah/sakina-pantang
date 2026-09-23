@@ -1,5 +1,66 @@
 export const birthPlan = [
   {
+    week: 28,
+    badge: 'Week 28',
+    badgeType: 'ok',
+    theme: 'Third trimester begins — awareness & daily monitoring',
+    weekendTasks: [
+      { id: 'w28-wknd-1', text: 'Download a kick-counting app or buy a simple tally counter — you\'ll use this daily from now until birth' },
+      { id: 'w28-wknd-2', text: 'Book your 28-week blood test if not already scheduled (glucose tolerance, full blood count, group B strep discussion)' },
+      { id: 'w28-wknd-3', text: 'Make your antenatal appointment schedule through to 40 weeks — they move to fortnightly from now' },
+    ],
+    dailyHabits: [
+      { id: 'w28-day-1', text: 'Kick counting — Cardiff "Count to Ten" method: note how long it takes to feel 10 movements. Do this at the same time each day (after a meal works well). Establish a baseline so you notice changes' },
+      { id: 'w28-day-2', text: 'Left-side sleeping — maximises blood flow to the placenta. If you wake on your back, just roll back. The goal is habit, not perfection' },
+      { id: 'w28-day-3', text: 'DHA source daily — fatty fish (salmon, sardines), or prenatal DHA supplement if you don\'t eat fish. Brain growth is fastest in Q3' },
+    ],
+  },
+  {
+    week: 29,
+    badge: 'Week 29',
+    badgeType: 'ok',
+    theme: 'Nutrition peak — iron, DHA, water therapy',
+    weekendTasks: [
+      { id: 'w29-wknd-1', text: 'If you haven\'t already, start researching and shortlisting doulas — good ones are booked 8–12 weeks ahead' },
+      { id: 'w29-wknd-2', text: 'Try a pregnancy water aerobics or swimming session — buoyancy takes weight off joints, helps with swelling and round ligament pain' },
+      { id: 'w29-wknd-3', text: 'Start building the baby shopping list — note what you actually need vs what\'s just marketed to you' },
+    ],
+    dailyHabits: [
+      { id: 'w29-day-1', text: 'Iron + vitamin C together at one meal — iron from meat/legumes, vitamin C from citrus/tomatoes. C roughly doubles iron absorption; don\'t waste the iron on its own' },
+      { id: 'w29-day-2', text: 'Calf pumps and ankle circles when resting — reduces swelling and DVT risk in the third trimester when blood is thicker' },
+    ],
+  },
+  {
+    week: 30,
+    badge: 'Week 30',
+    badgeType: 'ok',
+    theme: 'Birth planning — put your preferences into words',
+    weekendTasks: [
+      { id: 'w30-wknd-1', text: 'Draft your birth preferences (one page): pain relief options, who you want in the room, delayed cord clamping, skin-to-skin. Give a copy to your OB/midwife at your next appointment' },
+      { id: 'w30-wknd-2', text: 'Hospital / birth centre tour — book one if your provider offers it. Visualising the space reduces anxiety in actual labour' },
+      { id: 'w30-wknd-3', text: 'Research your postnatal ward — private vs shared room, partner rooming-in policies, breastfeeding support available' },
+    ],
+    dailyHabits: [
+      { id: 'w30-day-1', text: 'Pregnancy-safe stretching — 10 min: cat-cow, child\'s pose, side stretches. Third trimester spinal and hip tension compounds quickly if you don\'t counter it' },
+      { id: 'w30-day-2', text: 'Continue kick counting — if you ever notice a distinct decrease from your baseline, call your care provider same day (not wait-and-see)' },
+    ],
+  },
+  {
+    week: 31,
+    badge: 'Week 31',
+    badgeType: 'ok',
+    theme: 'Support systems — build the village before you need it',
+    weekendTasks: [
+      { id: 'w31-wknd-1', text: 'Map your postpartum support network — who will bring meals, do laundry, take older kids, hold the baby so you can sleep? Write actual names next to actual jobs' },
+      { id: 'w31-wknd-2', text: 'Research confinement options: urutan therapist / mak bidan (book now — calendar fills fast), or 月嫂 confinement nanny if that\'s your preference' },
+      { id: 'w31-wknd-3', text: 'Enrol in an antenatal class if you haven\'t — childbirth education, or a breastfeeding workshop. Weeks 34–36 is the sweet spot; anything left to book?' },
+    ],
+    dailyHabits: [
+      { id: 'w31-day-1', text: 'Optimal fetal positioning (OFP) — 20 min hands-and-knees, forward-leaning, or sitting on a birth ball. Baby\'s position matters more from Week 32. Start the habit now' },
+      { id: 'w31-day-2', text: 'Protein at every meal — tissue is building fast and your blood volume has expanded 50%. Shortchanging protein now means slower healing after birth' },
+    ],
+  },
+  {
     week: 32,
     badge: 'You are here',
     badgeType: 'now',

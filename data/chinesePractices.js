@@ -10,6 +10,7 @@ export const chinesePractices = {
       ['👶','Rest completely between feeds — the confinement nanny (月嫂, yuè sǎo) handles everything else'],
     ],
     herbal: '月子茶 (yuèzi chá) — Simmer 6 red dates + 10 longan + 1 tbsp wolfberry + rock sugar in 600ml water for 20 min. Drink warm throughout the day in place of plain water.',
+    teaNote: "红枣桂圆茶 (hóng zǎo guì yuán chá) is one of the gentlest options for a breastfeeding mother and is generally considered safe to enjoy daily from Day 1 all the way through Day 44. The main things to watch are its natural sugar content — keep it moderate rather than heavily sweetened — and pairing it with plain water, since concentrated herbal teas alone can make postpartum constipation worse.",
     wisdom: '"月子病，月子好" (yuèzi bìng, yuèzi hǎo) — Confinement illnesses are healed during confinement. What you invest in these 44 days pays dividends for decades.'
   },
   2: {
